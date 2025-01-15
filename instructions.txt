@@ -1,0 +1,8 @@
+1. Home Page
+    1. User Can Login And Register
+        1. If The User Is Student Or Parent They Can Only Access The Following Pages:
+                                                    1. Home Page
+                                                    2. About Page
+                                                    3. Contact Page
+                                                    4. Profile Page
+                                                    
