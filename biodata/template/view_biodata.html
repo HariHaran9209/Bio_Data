@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}My Bio-Data{% endblock %}
+{% block content %}
+<div class="card shadow">
+    <h2 class="text-center">My Bio-Data</h2>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Username:</strong> {{ biodata.user.username }}</li>
+        <li class="list-group-item"><strong>Age:</strong> {{ biodata.age }}</li>
+        <li class="list-group-item"><strong>Grade:</strong> {{ biodata.grade }}</li>
+        <li class="list-group-item"><strong>Address:</strong> {{ biodata.address }}</li>
+        <li class="list-group-item"><strong>Contact:</strong> {{ biodata.contact }}</li>
+    </ul>
+    <div class="d-flex justify-content-between mt-3">
+        <a href="{% url 'edit_biodata' %}" class="btn btn-warning">Edit Information</a>
+        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
