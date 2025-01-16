@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-source /path/to/your/venv/bin/activate
-
-set -o errexit
 
 pip install -r requirements.txt
 
