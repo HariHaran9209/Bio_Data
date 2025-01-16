@@ -31,45 +31,49 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">Bio-Data Portal</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">Home</a>
-                    </li>
-                    {% if not user.biodata and user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'submit_biodata' %}">Submit Bio-Data</a>
-                    </li>
-                    {% endif %}
-                    {% if user.biodata %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'view_biodata' %}">Bio-Data</a>
-                    </li>
-                    {% endif %}
-                    {% if user.is_staff %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin_dashboard' %}">Admin Dashboard</a>
-                    </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
-                    </li>
-                    {% endif %}
-
-                </ul>
-            </div>
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Bio-Data Portal</a>
+        <!-- Toggler Button for Mobile View -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Collapsible Navbar -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                {% if not user.biodata and user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'submit_biodata' %}">Submit Bio-Data</a>
+                </li>
+                {% endif %}
+                {% if user.biodata %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'view_biodata' %}">Bio-Data</a>
+                </li>
+                {% endif %}
+                {% if user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_dashboard' %}">Admin Dashboard</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                {% endif %}
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
 
     <div class="container mt-5">
