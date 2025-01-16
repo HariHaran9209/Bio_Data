@@ -24,7 +24,7 @@ def register(request):
             return redirect('home')
     else:
         form = UserRegistrationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, './register.html', {'form': form})
 
 def login_view(request):
     if request.user.is_authenticated:  # Redirect logged-in users
