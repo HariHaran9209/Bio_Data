@@ -8,6 +8,9 @@ from .models import *
 from .forms import *
 
 # Create your views here.
+def hello(request):
+    return HttpResponse("Hello Gokul Anna!")
+
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
