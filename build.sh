@@ -3,7 +3,8 @@
 
 pip install -r requirements.txt
 
-
+echo "Migrations starts"
 python manage.py makemigrations
-python manage.py migrate
 echo "Migrations Successfully Completed"
+python manage.py migrate
+echo "migrate Successfully Completed"
