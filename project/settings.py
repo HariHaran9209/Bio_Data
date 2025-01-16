@@ -65,7 +65,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.parse(
-        'postgres://postgres:hari1234@localhost:4444/mydatabase',
+        'postgres://postgres:hari1234@127.0.0.1:4444/mydatabase',
         conn_max_age=600,
         engine='django.db.backends.postgresql',
     )
