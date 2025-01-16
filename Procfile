@@ -1,1 +1,1 @@
-web: gunicorn biodata.wsgi:application
+web: gunicorn project.wsgi:application
