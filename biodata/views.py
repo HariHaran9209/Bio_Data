@@ -10,7 +10,7 @@ from .forms import *
 
 # Create your views here.
 def hello(request):
-    return HttpResponse("Hello Gokul Anna!")
+    return render(request, 'landing.html')
 
 def register(request):
     if request.method == 'POST':
