@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-sv=%cma#svl-xv-j#jt=p6nfwbg5tu44hq^qp)uzap98d539hn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -111,4 +111,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'bio_data.UserData'
+AUTH_USER_MODEL = 'biodata.UserData'
