@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="card shadow">
+    <h2 class="text-center">Admin Dashboard</h2>
+    <table class="table table-striped mt-3" style='background: grey; color: grey;'>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Age</th>
+                <th>Grade</th>
+                <th>Address</th>
+                <th>Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for biodata in biodata_list %}
+            <tr>
+                <td>{{ biodata.user.username }}</td>
+                <td>{{ biodata.age }}</td>
+                <td>{{ biodata.grade }}</td>
+                <td>{{ biodata.address }}</td>
+                <td>{{ biodata.contact }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No bio-data found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
