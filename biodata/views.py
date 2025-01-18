@@ -13,19 +13,28 @@ def hello(request):
     return render(request, 'landing.html')
 
 def register(request):
+    def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
+        secret_code = request.POST.get('secret_code')  # Get the secret code from the form
         if form.is_valid():
             user = form.save()
-            
-            # Check if the user is registering as an admin
+
+            # Check if the user entered the secret code for admin registration
             if 'role' in request.POST and request.POST['role'] == 'admin':
-                user.is_staff = True  # Mark the user as staff
-                user.is_superuser = True
-                user.save()
-            
+                if secret_code == 'adminonly':  # Replace with your secret code
+                    user.is_staff = True  # Mark the user as staff
+                    user.is_superuser = True
+                    user.save()
+                    messages.success(request, 'Admin account created successfully!')
+                else:
+                    messages.error(request, 'Invalid secret code. Cannot create an admin account.')
+                    user.delete()  # Remove the user record if secret code is invalid
+                    return redirect('register')
+            else:
+                messages.success(request, 'Student account created successfully!')
+
             login(request, user)
-            messages.success(request, 'Registration successful! You are now logged in.')
             return redirect('home')
         else:
             messages.error(request, 'Registration failed. Please check the form for errors.')
