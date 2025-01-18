@@ -25,13 +25,17 @@ def register(request):
                 user.save()
             
             login(request, user)
+            messages.success(request, 'Registration successful! You are now logged in.')
             return redirect('home')
+        else:
+            messages.error(request, 'Registration failed. Please check the form for errors.')
     else:
         form = UserRegistrationForm()
     return render(request, './register.html', {'form': form})
 
 def login_view(request):
     if request.user.is_authenticated:  # Redirect logged-in users
+        messages.info(request, 'You are already logged in.')
         return redirect('home')
     if request.method == 'POST':
         username = request.POST['username']
@@ -39,9 +43,10 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
+            messages.success(request, 'Login successful! Welcome back.')
             return redirect('home')
         else:
-            messages.error(request, 'Invalid username or password')
+            messages.error(request, 'Invalid username or password.')
     return render(request, 'login.html')
 
 def logout_view(request):
