@@ -1,78 +1,9 @@
 {% extends 'base.html' %}
-{% block title %}Bio-Data Home{% endblock %}
-{% block css %}
-.card-header {
-    font-size: 1.5rem;
-    letter-spacing: 0.05rem;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.card-body p {
-    font-size: 1.2rem;
-    color: #555;
-}
-
-.btn-lg {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    border-radius: 50px;
-}
-
-.btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
-}
-
-.btn-info {
-    background-color: #17a2b8;
-    border-color: #17a2b8;
-}
-
-.btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-}
-
-.card-footer a:hover {
-    background-color: #c82333;
-    border-color: #c82333;
-}
-
-body {
-    background: linear-gradient(to right, #f8f9fa, #e9ecef);
-    font-family: 'Roboto', sans-serif;
-}
-
-{% endblock %}
+{% block title %}Home{% endblock %}
 {% block content %}
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-primary text-white text-center">
-                    <h2>Welcome to Your Bio-Data Dashboard</h2>
-                </div>
-                <div class="card-body text-center">
-                    <p class="lead">
-                        Manage your bio-data easily. You can submit your details, view them, or log out.
-                    </p>
-                    <div class="d-flex justify-content-around my-4">
-                        <a href="{% url 'submit_biodata' %}" class="btn btn-success btn-lg">
-                            <i class="fas fa-user-plus"></i> Submit Bio-Data
-                        </a>
-                        <a href="{% url 'view_biodata' %}" class="btn btn-info btn-lg">
-                            <i class="fas fa-eye"></i> View Bio-Data
-                        </a>
-                    </div>
-                </div>
-                <div class="card-footer bg-light text-center">
-                    <a href="{% url 'logout' %}" class="btn btn-danger btn-lg">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="card shadow">
+    <h2>Welcome, {{ user.username }}!</h2>
+    <p>Role: {{ user.role }}</p>
+    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
 </div>
 {% endblock %}
