@@ -66,6 +66,8 @@ def logout_view(request):
 
 @login_required
 def home(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
     return render(request, 'home.html', {'user': request.user})
 
 @login_required
