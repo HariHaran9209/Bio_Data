@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import handler404
 from .views import *
 
 urlpatterns = [
@@ -12,3 +13,4 @@ urlpatterns = [
     path('view-biodata/', view_biodata, name='view_biodata'),
     path('edit-biodata/', edit_biodata, name='edit_biodata'),
 ]
+handler404 = custom_404
