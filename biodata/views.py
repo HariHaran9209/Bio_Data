@@ -13,7 +13,6 @@ def hello(request):
     return render(request, 'landing.html')
 
 def register(request):
-    def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         secret_code = request.POST.get('secret_code')  # Get the secret code from the form
