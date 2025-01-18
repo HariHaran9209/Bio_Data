@@ -21,11 +21,16 @@
                 {{ form.password2|add_class:"form-control rounded-2" }}
             </div>
             <div class="form-group mb-3">
-                <label for="role">Role:</label>
-                <select name="role" id="role" class="form-control rounded-2">
-                    <option value="student">Student</option>
-                    <option value="admin">Admin</option>
-                </select>
+                <label for="role">Register as:</label>
+    <select name="role" id="role" onchange="toggleSecretCodeField()">
+        <option value="student">Student</option>
+        <option value="admin">Admin</option>
+    </select>
+    
+    <div id="secret-code-field" style="display: none;">
+        <label for="secret_code">Secret Code:</label>
+        <input type="text" name="secret_code" id="secret_code" placeholder="Enter secret code">
+    </div>
             </div>
             <button type="submit" class="btn btn-primary w-100 py-2 rounded-2">Register</button>
             {% if messages %}
@@ -40,4 +45,15 @@
         </form>
     </div>
 </div>
+<script>
+    function toggleSecretCodeField() {
+        const role = document.getElementById('role').value;
+        const secretCodeField = document.getElementById('secret-code-field');
+        if (role === 'admin') {
+            secretCodeField.style.display = 'block';
+        } else {
+            secretCodeField.style.display = 'none';
+        }
+    }
+</script>
 {% endblock %}
