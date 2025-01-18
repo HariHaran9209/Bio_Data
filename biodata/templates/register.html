@@ -27,10 +27,10 @@
         <option value="admin">Admin</option>
     </select>
     
-    <div id="secret-code-field" style="display: none;">
-        <label for="secret_code">Secret Code:</label>
-        <input type="text" name="secret_code" id="secret_code" placeholder="Enter secret code">
-    </div>
+            <div class="mb-3" id='secret-code-field'>
+                <label for="secret_code" class="form-label">Secret Code (optional)</label>
+                <input type="text" name="secret_code" id="secret_code" class="form-control" placeholder="Enter secret code for staff account">
+            </div>
             </div>
             <button type="submit" class="btn btn-primary w-100 py-2 rounded-2">Register</button>
             {% if messages %}
