@@ -1,5 +1,31 @@
 {% extends 'base.html' %}
 {% block title %}My Bio-Data{% endblock %}
+{% block css %}
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.list-group-item {
+    font-size: 1.2rem;
+    padding: 15px 20px;
+}
+
+.btn {
+    font-size: 1rem;
+    padding: 10px 15px;
+}
+
+.btn i {
+    margin-right: 5px;
+}
+{% endblock %}
 {% block content %}
 <div class="container my-5">
     <div class="card shadow-lg border-0">
