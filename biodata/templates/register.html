@@ -28,6 +28,15 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-primary w-100 py-2 rounded-2">Register</button>
+            {% if messages %}
+    <div>
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
         </form>
     </div>
 </div>
