@@ -16,6 +16,15 @@
         <div class="d-grid">
             <button type="submit" class="btn btn-custom">Login</button>
         </div>
+        {% if messages %}
+    <div>
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
     </form>
 </div>
 {% endblock %}
