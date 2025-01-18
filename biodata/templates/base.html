@@ -94,18 +94,6 @@
         </div>
     </div>
 </nav>
-
-
-    <div class="container mt-5">
-        <div>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="message {{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
         {% block content %}
         {% endblock %}
     </div>
