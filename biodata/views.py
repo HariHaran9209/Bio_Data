@@ -8,17 +8,17 @@ from .models import *
 from django.http import HttpResponse
 from .forms import *
 
-# Create your views here.
-def hello(request):
-    return render(request, 'landing.html')
-    
+# Create your views here.    
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
 
 def register(request):
+    if request.user.is_authenticated:
+        messages.info(request, 'You are already logged in.')
+        return redirect('home')
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
-        secret_code = request.POST.get('secret_code')  # Get the secret code from the form
+        secret_code = request.POST.get('secret_code')
         if form.is_valid():
             user = form.save()
 
