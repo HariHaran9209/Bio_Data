@@ -7,4 +7,3 @@ python manage.py makemigrations biodata
 echo "Migrations Successfully Completed"
 python manage.py migrate
 echo "migrate Successfully Completed"
-python manage.py collectstatic --no-input
