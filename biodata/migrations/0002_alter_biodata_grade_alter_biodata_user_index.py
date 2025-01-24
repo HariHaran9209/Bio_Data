@@ -8,17 +8,17 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bio_data', '0001_initial'),
+        ('biodata', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='biodata',
+            model_name='bio_data',
             name='grade',
             field=models.CharField(max_length=10),
         ),
         migrations.AlterField(
-            model_name='biodata',
+            model_name='bio_data',
             name='user',
             field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
