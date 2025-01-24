@@ -24,3 +24,8 @@ class BioDataForm(forms.ModelForm):
     class Meta:
         model = BioData
         fields = ['age', 'grade', 'address', 'contact']
+
+class IndexForm(forms.ModelForm):
+    class Meta:
+        model = Index
+        fields = ['studentname', 'dob', 'mothername', 'fathername', 'guardianname', 'aadharno', 'nameinaadhar', 'admissindate', 'address', 'pincode', 'phonenumber', 'alternatenumber', 'emailid', 'BPL', 'AAY', 'EWS', 'CWSN', 'impairment', 'CWSN1', 'disabilityparc', 'nationality', 'oosc', 'mainstream', 'bloodgroup', 'admissionno', 'dateInput', 'stream', 'subjects', 'status', 'grade', 'result', 'marks', 'attendence', 'SLD', 'ASD', 'ADHD', 'special', 'sports', 'scouts', 'internet', 'height', 'weight', 'distance', 'quilification']
