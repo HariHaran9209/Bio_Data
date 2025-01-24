@@ -5,9 +5,11 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from django.core.management import call_command
 from django.http import HttpResponseForbidden
-from .models import *
 from django.http import HttpResponse
+from django.db import connection
+from .models import *
 from .forms import *
+import io
 
 # Create your views here.    
 def custom_404(request, exception):
@@ -169,3 +171,17 @@ def run_migrations(request):
         return HttpResponse("Migrations applied successfully!")
     except Exception as e:
         return HttpResponse(f"Error: {e}")
+
+def show_migrations(request):
+    out = io.StringIO()
+    call_command('showmigrations', stdout=out)
+    return HttpResponse(f"<pre>{out.getvalue()}</pre>")
+
+def check_table(request):
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        SELECT table_name FROM information_schema.tables
+        WHERE table_name='biodata_index';
+        """)
+        exists = cursor.fetchone()
+    return HttpResponse(f"Table exists: {exists}")
