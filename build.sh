@@ -2,8 +2,6 @@
 set -o errexit
 
 pip install -r requirements.txt
-echo 'Unapplying Migrations'
-python manage.py migrate biodata zero
 echo "Migrations starts"
 python manage.py makemigrations biodata
 echo "Migrations Successfully Completed"
