@@ -13,12 +13,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='bio_data',
+            model_name='biodata',
             name='grade',
             field=models.CharField(max_length=10),
         ),
         migrations.AlterField(
-            model_name='bio_data',
+            model_name='biodata',
             name='user',
             field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
