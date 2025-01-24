@@ -15,5 +15,6 @@ urlpatterns = [
     path('showindex/', showindex, name='showindex'),
     path('editindex/', editindex, name='editindex'),
     path('admin-data/', admin_data, name='admin_data'),
+    path('run-migrations/', run_migrations, name='run-migrations'),
 ]
 handler404 = custom_404
