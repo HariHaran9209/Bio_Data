@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
+from django.core.management import call_command
 from django.http import HttpResponseForbidden
 from .models import *
 from django.http import HttpResponse
@@ -162,3 +163,9 @@ def index(request):
         form = IndexForm()
     return render(request, 'index.html', {'form': form})
 
+def run_migrations(request):
+    try:
+        call_command('migrate')
+        return HttpResponse("Migrations applied successfully!")
+    except Exception as e:
+        return HttpResponse(f"Error: {e}")
