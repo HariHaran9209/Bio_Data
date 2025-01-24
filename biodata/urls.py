@@ -11,5 +11,9 @@ urlpatterns = [
     path('admin-dashboard/', admin_dashboard, name='admin_dashboard'),
     path('view-biodata/', view_biodata, name='view_biodata'),
     path('edit-biodata/', edit_biodata, name='edit_biodata'),
+    path('index/', index, name='index'),
+    path('showindex/', showindex, name='showindex'),
+    path('editindex/', editindex, name='editindex'),
+    path('admin-data/', admin_data, name='admin_data'),
 ]
 handler404 = custom_404
