@@ -8,3 +8,4 @@ class UserDataAdmin(UserAdmin):
 # Register your models here.
 admin.site.register(BioData)
 admin.site.register(UserData, UserDataAdmin)
+admin.site.register(Index)
