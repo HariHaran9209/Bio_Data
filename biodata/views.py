@@ -115,3 +115,50 @@ def edit_biodata(request):
     else:
         form = BioDataForm(instance=biodata)
     return render(request, 'edit_biodata.html', {'form': form})
+
+
+@login_required
+def editindex(request):
+    # Ensure the user has bio-data to edit
+    if not hasattr(request.user, 'index'):
+        return redirect('index')
+
+    index = request.user.index
+    if request.method == 'POST':
+        form = IndexForm(request.POST, instance=index)
+        if form.is_valid():
+            form.save()
+            return redirect('showindex')
+    else:
+        form = IndexForm(instance=index)
+    return render(request, 'editindex.html', {'form': form})
+
+@login_required
+def showindex(request):
+    index = get_object_or_404(Index, user=request.user)
+    return render(request, 'showindex.html', {'index': index})
+
+@login_required
+def admin_data(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden("You do not have permission to access this page.")
+
+    index_list = Index.objects.all()
+    return render(request, 'admin-data.html', {'index_list': index_list})
+
+@login_required
+def index(request):
+    if hasattr(request.user, 'index'):
+        return redirect('showindex')
+
+    if request.method == 'POST':
+        form = IndexForm(request.POST)
+        if form.is_valid():
+            biodata = form.save(commit=False)  # Save form but don’t commit to database
+            biodata.user = request.user        # Associate with the logged-in user
+            biodata.save()                     # Now save to the database
+            return redirect('showindex')         # Redirect to a success page
+    else:
+        form = IndexForm()
+    return render(request, 'index.html', {'form': form})
+
