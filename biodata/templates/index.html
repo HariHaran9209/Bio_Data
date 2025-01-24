@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+{% block title %} Multi-step Registration Form {% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>UDISE + Student Profile</h4>
+            </div>
+            <div class="card-body">
+                <div class="progress mb-4">
+                    <div id="progressBar" class="progress-bar bg-success" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" data-step="Step 1 of 3"></div>
+                </div>
+                <form method='POST'>
+                    {% csrf_token %}
+                    <!-- Step 1: Personal Information -->
+                    <div class="step active" id="step1">
+                        <h5><i class="bi bi-person step-icon"></i> General Profile Field Rules</h5>
+                        <div class="mb-3">
+                            <label for="studentname" class="form-label">Student's Name(As Per Birth Certificate)</label>
+                            <input type="text" class="form-control" id="studentname" name='studentname'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dob" class="form-label">Date Of Birth(As Per Birth Certificate)</label>
+                            <input type="date" class="form-control" id="dob" name='dob'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mothername" class="form-label">Mother's Name</label>
+                            <input type="text" class="form-control" id="mothername" name='mothername'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fathername" class="form-label">Father's Name</label>
+                            <input type="text" class="form-control" id="fathername" name='fathername'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="guardianname" class="form-label">Guardian's Name</label>
+                            <input type="text" class="form-control" id="guardianname" name='guardianname'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="aadharno" class="form-label">Aadhar Number Of The Student</label>
+                            <input type="number" class="form-control" id="aadharno" name='aadharno'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nameinaadhar" class="form-label">Name Of The Student As Per/In Aadhar Card</label>
+                            <input type="text" class="form-control" id="nameinaadhar" name=nameinaadhar>
+                        </div>
+                        <div class="mb-3">
+                            <label for="admissindate" class="form-label">Admission Date In Present School</label>
+                            <input type="date" class="form-control" id="admissindate" name='admissindate'>
+                        </div>
+                        <!-- 4.1.9 -->
+                            <div class="mb-3">
+                                <label for="address" class="form-label" style='text-indent: 50px;'>Address</label>
+                                <input type="text" class="form-control" id="address" style='margin-left: 50px;' name='address'>
+                            </div>
+                            <div class="mb-3" style='margin-left: 50px;'>
+                                <label for="pincode" class="form-label">Pincode</label>
+                                <input type="number" class="form-control" id="pincode" name='pincode'>
+                            </div>
+                        <!-- End -->
+                        <!-- 4.1.10 -->
+                            <div class="mb-3" style='margin-left: 50px;'>
+                                <label for="phonenumber" class="form-label">Mobile Number(Of Student/Parent/Guardian)</label>
+                                <input type="tel" class="form-control" id="phonenumber" name='phonenumber'>
+                            </div>
+                            <div class="mb-3" style='margin-left: 50px;'>
+                                <label for="alternatenumber" class="form-label">Alternate Mobile Number(Of Student/Parent/Guardian)</label>
+                                <input type="tel" class="form-control" id="alternatenumber" name='alternatenumber'>
+                            </div>
+                        <!-- End -->
+                        <div class="mb-3">
+                            <label for="emailid" class="form-label">Contact Email-ID(Of Student/Parent/Guardian)</label>
+                            <input type="email" class="form-control" id="emailid" name='emailid'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="BPL" class="form-label">Whether BPL Beneficiary(Below Poverty Line Family)</label>
+                            <input type="text" class="form-control" id="BPL" name='BPL'>
+                        </div>
+                        <!-- 4.1.15.a) -->
+                            <div class="mb-3" style='margin-left: 50px;'>
+                                <label for="AAY" class="form-label">Whether Antyodaya Anna Yojana (AAY) Beneficiary</label>
+                                <input type="text" class="form-control" id="AAY" name='AAY'>
+                            </div>
+                            <!-- 4.1.16 -->
+                                <div class="mb-3" style='margin-left: 50px;'>
+                                    <label for="EWS" class="form-label">Whether Belongs To EWS / Disadvantaged Group</label>
+                                    <input type="radio" name="EWS" value="true"> Yes
+                                    <input type="radio" name="EWS" value="false" > No
+                                </div>
+                        <div class="mb-3">
+                            <label for="CWSN" class="form-label">Whether CWSN</label>
+                            <input type="text" class="form-control" id="CWSN" name='CWSN'>
+                        </div>
+                        <!-- 4.1.17.a) -->
+                            <div class="mb-3" style='margin-left: 50px;'>
+                                <label for="impairment" class="form-label">Type Of Impairment(code) Yes / No</label>
+                                <input type="radio" name="impairment" value="true" > Yes
+                                    <input type="radio" name="impairment" value="false" > No
+                            </div>
+                            <div class="mb-3" style='margin-left: 50px;'>
+                                <label for="CWSN1" class="form-label">Whether CWSN</label>
+                                <input type="radio" name="CWSN1" value="true" > Yes
+                                    <input type="radio" name="CWSN1" value="false" > No
+                            </div>
+                        <!-- 4.1.17.b) -->
+                            <div class="mb-3" style='margin-left: 50px;'>
+                                <label for="disabilityparc" class="form-label">Disability Percentage(In %)</label>
+                                <input type="number" class="form-control" id="disabilityparc" name='disabilityparc'>
+                            </div>
+                        <div class="mb-3">
+                            <label for="nationality" class="form-label">Whether The Student Is Indian National</label>
+                            <input type="radio" name="nationality" value="true" > Yes
+                                    <input type="radio" name="nationality" value="false" > No
+                        </div>
+                        <div class="mb-3">
+                            <label for="oosc" class="form-label">Is This Student Identified As Out-Of-School-Child In Current Or Previous Years</label>
+                            <input type="radio" name="oosc" value="true" > Yes
+                                    <input type="radio" name="oosc" value="false" > No
+                        </div>
+                        <!-- 4.1.19.a) -->
+                            <div class="mb-3" style='margin-left: 50px;'>
+                                <label for="mainstream" class="form-label">When The Student Is mainstreamed? In Current Academic Year / In Earlier Academic Year</label>
+                                <input type="text" class="form-control" id="mainstream" name='mainstream'>
+                            </div>
+                        <div class="mb-3">
+                            <label for="bloodgroup" class="form-label">Blood Group</label>
+                            <input type="text" class="form-control" id="bloodgroup" name='bloodgroup'>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Contact Information -->
+                    <div class="step" id="step2">
+                        <h5><i class="bi bi-envelope step-icon"></i> Enrolment Profile Field Rules</h5>
+                        <div class="mb-3">
+                            <label for="admissionno" class="form-label">Admission Number In Present School</label>
+                            <input type="number" class="form-control" id="admissionno" name='admissionno'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dateInput" class="form-label">Admission Date In Present School, Class, Section, Roll Number</label>
+                            <input type="date" class="form-control" id="dateInput" name='dateInput'>
+                        </div>
+                        <!-- 4.2.4.a) -->
+                            <div class="mb-3" style='margin-left:50px;'>
+                                <label for="stream" class="form-label">Academic Stream Opted by Student(higher class only)</label>
+                                <input type="text" class="form-control" id="stream" name='stream'>
+                            </div>
+                        <!-- 4.2.4.b) -->
+                            <div class="mb-3" style='margin-left:50px;'>
+                                <label for="subjects" class="form-label">Subjects Group Studied By The Student(higher class only)</label>
+                                <input type="text" class="form-control" id="subjects" name='subjects'>
+                            </div>
+                        <!-- 4..2.5.a) -->
+                        <div class="mb-3" style='margin-left:50px;'>
+                            <label for="status" class="form-label">Status Of Student In Previous Academic Year Of Schooling</label>
+                            <input type="text" class="form-control" id="status" name='status'>
+                        </div>
+                        <!-- 4.2.5.b) -->
+                        <div class="mb-3" style='margin-left:50px;'>
+                            <label for="grade" class="form-label">Grade/Class Studied In The Previous/Last Academic Year</label>
+                            <input type="text" class="form-control" id="grade" name='grade'>
+                        </div>
+                        <!-- 4.2.7.a) -->
+                        <div class="mb-3" style='margin-left:50px;'>
+                            <label for="result" class="form-label">In The Previous Class Studied - Result Of The Examination</label>
+                            <input type="text" class="form-control" id="result" name='result'>
+                        </div>
+                        <!-- 4.2.7.b) -->
+                        <div class="mb-3" style='margin-left:50px;'>
+                            <label for="marks" class="form-label">In The Previous Class Studied - Marks Obtained (In Percentage)</label>
+                            <input type="number" class="form-control" id="marks" name='marks'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="attendence" class="form-label">Number Of Days Student Attended School (In The Previous Academic Year)</label>
+                            <input type="text" class="form-control" id="attendence" name='attendence'>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Account Details -->
+                    <div class="step" id="step3">
+                        <h5><i class="bi bi-shield-lock step-icon"></i> Facility Profile</h5>
+                        <div class="mb-3">
+                            <label for="SLD" class="form-label">Whether The Student has Been Screened For Specific Learning Disability (SLD)</label>
+                            <input type="radio" name="SLD" value="true" > Yes
+                                    <input type="radio" name="SLD" value="false" > No
+                        </div>
+                        <div class="mb-3">
+                            <label for="ASD" class="form-label">Whether The Student Has Been Screeened For Autism Spectrum Disorder(ASD)</label>
+                            <input type="radio" name="ASD" value="true" > Yes
+                                    <input type="radio" name="ASD" value="false" > No
+                        </div>
+                        <div class="mb-3">
+                            <label for="ADHD" class="form-label">Whether Student Has Been Screened For Attention Deficit Hyperactive Disorder (ADHD)</label>
+                            <input type="radio" name="ADHD" value="true" > Yes
+                                    <input type="radio" name="ADHD" value="false" > No
+                        </div>
+                        <div class="mb-3">
+                            <label for="special" class="form-label">Has The Student Been Identified As A Gifted / Talented</label>
+                            <input type="radio" name="special" value="true" > Yes
+                                    <input type="radio" name="special" value="false" > No
+                        </div>
+                        <div class="mb-3">
+                            <label for="sports" class="form-label">Does The Student Appeared In Any State/National/Olympaids Level Competitions</label>
+                           <input type="radio" name="sports" value="true" > Yes
+                                    <input type="radio" name="sports" value="false" > No
+                        </div>
+                        <div class="mb-3">
+                            <label for="scouts" class="form-label">Does The Student Participate In NCC/NSS/Scouts And Guides</label>
+                            <input type="radio" name="scouts" value="true" > Yes
+                                    <input type="radio" name="scouts" value="false" > No
+                        </div>
+                        <div class="mb-3">
+                            <label for="internet" class="form-label">Whether Student Is Capable Of Handling Digital Devices Including The Internet</label>
+                            <input type="radio" name="internet" value="true" > Yes
+                                    <input type="radio" name="internet" value="false" > No
+                        </div>
+                        <div class="mb-3">
+                            <label for="height" class="form-label">Student's Height(In CMs)</label>
+                            <input type="text" class="form-control" id="height" name='height'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="weight" class="form-label">Student's Weight (In KGs)</label>
+                            <input type="text" class="form-control" id="weight" name='weight'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="distance" class="form-label">Approximate Distance Of Student's Residence To School</label>
+                            <input type="text" class="form-control" id="distance" name='distance'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quilification" class="form-label">Completed Highest Education Level Of Mother/Father/Legal Guardian</label>
+                            <input type="text" class="form-control" id="quilification" name='quilification'>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="step-buttons">
+                        <button type="button" class="btn btn-secondary" id="prevBtn" onclick="changeStep(-1)" disabled>Previous</button>
+                        <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">Next</button>
+                        <button type="submit" class="btn btn-success d-none" id="submitBtn">Submit</button>
+                    </div>
+                    {% if form.errors %}
+                        <div style="color: red;">
+                            <ul>
+                                {% for field, errors in form.errors.items %}
+                                    <li>{{ field }}: {{ errors|striptags }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentStep = 1;
+        function changeStep(step) {
+            const totalSteps = 3;
+            const steps = document.querySelectorAll('.step');
+
+            // Hide the current step
+            steps[currentStep - 1].classList.remove('active');
+
+            // Update the current step
+            currentStep += step;
+
+            // Show the new step
+            steps[currentStep - 1].classList.add('active');
+
+            // Enable/disable navigation buttons
+            document.getElementById('prevBtn').disabled = currentStep === 1;
+            document.getElementById('nextBtn').classList.toggle('d-none', currentStep === totalSteps);
+            document.getElementById('submitBtn').classList.toggle('d-none', currentStep !== totalSteps);
+
+            // Update progress bar
+            const progressBar = document.getElementById('progressBar');
+            const progress = (currentStep / totalSteps) * 100;
+            progressBar.style.width = progress + '%';
+            progressBar.setAttribute('aria-valuenow', progress);
+            progressBar.setAttribute('data-step', `Step ${currentStep} of ${totalSteps}`);
+        }
+
+        document.getElementById('registrationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Form submitted successfully!');
+        });</script>
+{% endblock %}

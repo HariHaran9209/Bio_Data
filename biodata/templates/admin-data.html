@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="card shadow">
+    <h2 class="text-center mb-4">Admin Dashboard</h2>
+
+    <div class="container">
+        <div class="row">
+            {% for index in index_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card" style="border: 1px solid #ddd; padding: 15px;">
+                    <h5 class="card-title">Student Name: {{ index.studentname }}</h5>
+                    <hr>
+                    <dl class="row">
+                        <dt class="col-sm-5">Date Of Birth</dt>
+                        <dd class="col-sm-7">{{ index.dob }}</dd>
+
+                        <dt class="col-sm-5">Mother's Name</dt>
+                        <dd class="col-sm-7">{{ index.mothername }}</dd>
+
+                        <dt class="col-sm-5">Father's Name</dt>
+                        <dd class="col-sm-7">{{ index.fathername }}</dd>
+
+                        <dt class="col-sm-5">Name As Per Aadhar</dt>
+                        <dd class="col-sm-7">{{ index.nameinaadhar }}</dd>
+
+                        <dt class="col-sm-5">Admission Date</dt>
+                        <dd class="col-sm-7">{{ index.admissindate }}</dd>
+
+                        <dt class="col-sm-5">Address</dt>
+                        <dd class="col-sm-7">{{ index.address }}</dd>
+
+                        <dt class="col-sm-5">Pincode</dt>
+                        <dd class="col-sm-7">{{ index.pincode }}</dd>
+
+                        <dt class="col-sm-5">Phone Number</dt>
+                        <dd class="col-sm-7">{{ index.phonenumber }}</dd>
+
+                        <dt class="col-sm-5">Stream</dt>
+                        <dd class="col-sm-7">{{ index.stream }}</dd>
+
+                        <dt class="col-sm-5">Height</dt>
+                        <dd class="col-sm-7">{{ index.height }}</dd>
+
+                        <dt class="col-sm-5">Weight</dt>
+                        <dd class="col-sm-7">{{ index.weight }}</dd>
+                    </dl>
+                </div>
+            </div>
+
+            {% empty %}
+            <div class="alert alert-warning text-center">
+                No bio-data found.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

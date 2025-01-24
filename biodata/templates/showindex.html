@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}My Index{% endblock %}
+{% block head %}
+<style>
+
+.card {
+            margin: 20px auto;
+            max-width: 500px;
+            padding: 20px;
+        }
+</style>
+{% endblock %}
+{% block content %}
+<div class="card shadow">
+    <h2 class="text-center">My Datas</h2>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Student Name:</strong> {{ index.studentname }}</li>
+        <li class="list-group-item"><strong>DOB:</strong> {{ index.dob }}</li>
+        <li class="list-group-item"><strong>Mother Name:</strong> {{ index.mothername }}</li>
+        <li class="list-group-item"><strong>Father Name:</strong> {{ index.fathername }}</li>
+        <li class="list-group-item"><strong>Aadhar:</strong> {{ index.aadharno }}</li>
+        <li class="list-group-item"><strong>Name In Aadhar:</strong> {{ index.nameinaadhar }}</li>
+        <li class="list-group-item"><strong>Admission Date:</strong> {{ index.admissindate }}</li>
+        <li class="list-group-item"><strong>Address:</strong> {{ index.address }}</li>
+        <li class="list-group-item"><strong>Pincode:</strong> {{ index.pincode }}</li>
+        <li class="list-group-item"><strong>Phone Number:</strong> {{ index.phonenumber }}</li>
+        <li class="list-group-item"><strong>Alternate Phone Number:</strong> {{ index.alternatenumber}}</li>
+        <li class="list-group-item"><strong>Email ID:</strong> {{ index.emailid }}</li>
+        <li class="list-group-item"><strong>BPL:</strong> {{ index.BPL }}</li>
+        <li class="list-group-item"><strong>AAY:</strong> {{ index.AAY }}</li>
+        <li class="list-group-item"><strong>EWS:</strong> {{ index.EWS }}</li>
+        <li class="list-group-item"><strong>CWSN:</strong> {{ index.CWSN }}</li>
+        <li class="list-group-item"><strong>Impairment:</strong> {{ index.impairment }}</li>
+        <li class="list-group-item"><strong>CWSN:</strong> {{ index.CWSN1 }}</li>
+        <li class="list-group-item"><strong>Disability Percentage:</strong> {{ index.disabilityparc }}</li>
+        <li class="list-group-item"><strong>Nationality:</strong> {{ index.nationality }}</li>
+        <li class="list-group-item"><strong>Out-Of-School-Child:</strong> {{ index.oosc }}</li>
+        <li class="list-group-item"><strong>Main Stream:</strong> {{ index.mainstream }}</li> 
+        <li class="list-group-item"><strong>Blood Group:</strong> {{ index.bloodgroup }}</li>
+        <li class="list-group-item"><strong>Admission Number:</strong> {{ index.admissionno }}</li>
+        <li class="list-group-item"><strong>Admission Date:</strong> {{ index.dateInput }}</li>
+        <li class="list-group-item"><strong>Stream:</strong> {{ index.stream }}</li>
+        <li class="list-group-item"><strong>Subjects:</strong> {{ index.subjects }}</li>
+        <li class="list-group-item"><strong>Status:</strong> {{ index.status }}</li>
+        <li class="list-group-item"><strong>Grade:</strong> {{ index.grade }}</li>
+        <li class="list-group-item"><strong>Result:</strong> {{ index.result }}</li>
+        <li class="list-group-item"><strong>Marks:</strong> {{ index.marks }}</li>
+        <li class="list-group-item"><strong>Attendence:</strong> {{ index.attendence }}</li>
+        <li class="list-group-item"><strong>SLD:</strong> {{ index.SLD }}</li>
+        <li class="list-group-item"><strong>ASD:</strong> {{ index.ASD }}</li>
+        <li class="list-group-item"><strong>ADHD:</strong> {{ index.ADHD }}</li>
+        <li class="list-group-item"><strong>Talented:</strong> {{ index.special }}</li>
+        <li class="list-group-item"><strong>Sports:</strong> {{ index.sports }}</li>
+        <li class="list-group-item"><strong>Scouts:</strong> {{ index.scouts }}</li>
+        <li class="list-group-item"><strong>Internet:</strong> {{ index.internet }}</li>
+        <li class="list-group-item"><strong>Height:</strong> {{ index.height }}</li>
+        <li class="list-group-item"><strong>Weight:</strong> {{ index.weight }}</li>
+        <li class="list-group-item"><strong>Distance:</strong> {{ index.distance }}</li>
+        <li class="list-group-item"><strong>Quilification:</strong> {{ index.quilification }}</li>
+    </ul>
+    <div class="d-flex justify-content-between mt-3">
+        <a href="{% url 'editindex' %}" class="btn btn-warning">Edit Information</a>
+        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
