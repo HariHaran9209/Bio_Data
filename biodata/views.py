@@ -69,8 +69,7 @@ def logout_view(request):
 
 def home(request):
     if not request.user.is_authenticated:  # Redirect logged-in users
-        messages.info(request, 'You are already logged in.')
-        return redirect('home')
+        return redirect('login')
     return render(request, 'home.html', {'user': request.user})
 
 @login_required
