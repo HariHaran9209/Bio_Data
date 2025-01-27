@@ -99,46 +99,34 @@
             color: #333;
             margin-bottom: 10px;
         }
-       #preloader {
+        #preloader {
           position: fixed;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background-color: #ffffff; /* Background color while loading */
+          background: #ffffff;
           display: flex;
           align-items: center;
           justify-content: center;
           z-index: 9999;
         }
-        
-        /* Spinner animation */
         .spinner {
-          border: 8px solid #f3f3f3;
-          border-top: 8px solid #3498db;
+          border: 5px solid #f3f3f3;
+          border-top: 5px solid #3498db;
           border-radius: 50%;
-          width: 60px;
-          height: 60px;
+          width: 50px;
+          height: 50px;
           animation: spin 1s linear infinite;
         }
-        
         @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
-        
-        /* Hide content initially */
+    
+        /* Hide main content initially */
         #main-content {
-          display: block;
-        }
-        
-        /* Content style */
-        #content {
-          display: block;
+          display: none;
         }
     </style>
     {% block head %}
@@ -146,13 +134,11 @@
 </head>
 
 <body>
-    <div id="loading-screen">
-        <div id='preloader'>
-          <div class="spinner"></div>
-        </div>
+    <div id='preloader'>
+      <div class="spinner"></div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container" style='display: none;'>
+    <div class="container" style='display: none;' id='main-content'>
         <a class="navbar-brand" href="{% url 'home' %}">Bio-Data Portal</a>
         <!-- Toggler Button for Mobile View -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -236,14 +222,15 @@
                 document.body.classList.add('dark-mode');
                 darkModeToggle.checked = true;
             }
-       window.addEventListener('load', () => {
+       document.addEventListener("DOMContentLoaded", () => {
           const preloader = document.getElementById('preloader');
           const mainContent = document.getElementById('main-content');
-          
+        
+          // Fallback timeout to hide the preloader
           setTimeout(() => {
             preloader.style.display = 'none';
             mainContent.style.display = 'block';
-          }, 5000); // Hides the loader after 3 seconds
+          }, 5000); // Hide loader after 5 seconds, no matter what
         });
     </script>
 </body>
