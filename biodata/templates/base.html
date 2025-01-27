@@ -11,6 +11,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
         body {
             background-color: #f8f9fa;
         }
@@ -97,15 +99,46 @@
             color: #333;
             margin-bottom: 10px;
         }
-        .loadingScreen {
-          position: absolute;
-          z-index: 5;
+       #preloader {
+          position: fixed;
+          top: 0;
+          left: 0;
           width: 100%;
-          height: 100vh;
-          background-color: white;
+          height: 100%;
+          background-color: #ffffff; /* Background color while loading */
           display: flex;
           align-items: center;
           justify-content: center;
+          z-index: 9999;
+        }
+        
+        /* Spinner animation */
+        .spinner {
+          border: 8px solid #f3f3f3;
+          border-top: 8px solid #3498db;
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+        
+        /* Hide content initially */
+        #main-content {
+          display: block;
+        }
+        
+        /* Content style */
+        #content {
+          display: block;
         }
     </style>
     {% block head %}
@@ -113,8 +146,13 @@
 </head>
 
 <body>
+    <div id="loading-screen">
+        <div id='preloader'>
+          <div class="spinner"></div>
+        </div>
+    </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
+    <div class="container" style='display: none;'>
         <a class="navbar-brand" href="{% url 'home' %}">Bio-Data Portal</a>
         <!-- Toggler Button for Mobile View -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -179,10 +217,6 @@
         {% block content %}
         {% endblock %}
     </div>
-    <div class="loadingScreen">
-<!--My content is the word "soundscape" but the o is replaced with a disc-->
-      <h1>Loading, Please Wait</h1>
-    </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -202,10 +236,14 @@
                 document.body.classList.add('dark-mode');
                 darkModeToggle.checked = true;
             }
-        var loadingScreen = document.querySelector(".loadingScreen");
-        window.addEventListener('load', function() {
-          loadingScreen.style.display = 'none';
-        })
+        window.addEventListener('load', () => {
+          const preloader = document.getElementById('preloader');
+          const mainContent = document.getElementById('main-content');
+          
+          // Hide preloader and show the main content
+          preloader.style.display = 'none';
+          mainContent.style.display = 'block';
+        });
     </script>
 </body>
 </html>
