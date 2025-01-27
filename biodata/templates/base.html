@@ -236,13 +236,14 @@
                 document.body.classList.add('dark-mode');
                 darkModeToggle.checked = true;
             }
-        window.addEventListener('load', () => {
+       window.addEventListener('load', () => {
           const preloader = document.getElementById('preloader');
           const mainContent = document.getElementById('main-content');
           
-          // Hide preloader and show the main content
-          preloader.style.display = 'none';
-          mainContent.style.display = 'block';
+          setTimeout(() => {
+            preloader.style.display = 'none';
+            mainContent.style.display = 'block';
+          }, 5000); // Hides the loader after 3 seconds
         });
     </script>
 </body>
