@@ -184,3 +184,6 @@ def check_table(request):
         """)
         exists = cursor.fetchone()
     return HttpResponse(f"Table exists: {exists}")
+
+def testing(request):
+    retun render(request, 'testing.html')
