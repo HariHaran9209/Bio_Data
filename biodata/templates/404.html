@@ -1,161 +1,55 @@
-<html>
-    <head>
-        <title> 404 Page Not Found </title>
-        <style>
-            @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&family=Roboto:wght@100;300&display=swap");
-            :root {
-              --button: #b3b3b3;
-              --button-color: #0a0a0a;
-              --shadow: #000;
-              --bg: #737373;
-              --header: #7a7a7a;
-              --color: #fafafa;
-              --lit-header: #e6e6e6;
-              --speed: 2s;
-            }
-            * {
-              box-sizing: border-box;
-              transform-style: preserve-3d;
-            }
-            @property --swing-x {
-              initial-value: 0;
-              inherits: false;
-              syntax: '<integer>';
-            }
-            @property --swing-y {
-              initial-value: 0;
-              inherits: false;
-              syntax: '<integer>';
-            }
-            body {
-              min-height: 100vh;
-              display: flex;
-              font-family: 'Roboto', sans-serif;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              background: var(--bg);
-              color: var(--color);
-              perspective: 1200px;
-            }
-            a {
-              text-transform: uppercase;
-              text-decoration: none;
-              background: var(--button);
-              color: var(--button-color);
-              padding: 1rem 4rem;
-              border-radius: 4rem;
-              font-size: 0.875rem;
-              letter-spacing: 0.05rem;
-            }
-            p {
-              font-weight: 100;
-            }
-            h1 {
-              -webkit-animation: swing var(--speed) infinite alternate ease-in-out;
-                      animation: swing var(--speed) infinite alternate ease-in-out;
-              font-size: clamp(5rem, 40vmin, 20rem);
-              font-family: 'Open Sans', sans-serif;
-              margin: 0;
-              margin-bottom: 1rem;
-              letter-spacing: 1rem;
-              transform: translate3d(0, 0, 0vmin);
-              --x: calc(50% + (var(--swing-x) * 0.5) * 1%);
-              background: radial-gradient(var(--lit-header), var(--header) 45%) var(--x) 100%/200% 200%;
-              -webkit-background-clip: text;
-              color: transparent;
-            }
-            h1:after {
-              -webkit-animation: swing var(--speed) infinite alternate ease-in-out;
-                      animation: swing var(--speed) infinite alternate ease-in-out;
-              content: "404";
-              position: absolute;
-              top: 0;
-              left: 0;
-              color: var(--shadow);
-              filter: blur(1.5vmin);
-              transform: scale(1.05) translate3d(0, 12%, -10vmin) translate(calc((var(--swing-x, 0) * 0.05) * 1%), calc((var(--swing-y) * 0.05) * 1%));
-            }
-            .cloak {
-              animation: swing var(--speed) infinite alternate-reverse ease-in-out;
-              height: 100%;
-              width: 100%;
-              transform-origin: 50% 30%;
-              transform: rotate(calc(var(--swing-x) * -0.25deg));
-              background: radial-gradient(40% 40% at 50% 42%, transparent, #000 35%);
-            }
-            .cloak__wrapper {
-              position: fixed;
-              top: 0;
-              left: 0;
-              bottom: 0;
-              right: 0;
-              overflow: hidden;
-            }
-            .cloak__container {
-              height: 250vmax;
-              width: 250vmax;
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-            }
-            .info {
-              text-align: center;
-              line-height: 1.5;
-              max-width: clamp(16rem, 90vmin, 25rem);
-            }
-            .info > p {
-              margin-bottom: 3rem;
-            }
-            @-webkit-keyframes swing {
-              0% {
-                --swing-x: -100;
-                --swing-y: -100;
-              }
-              50% {
-                --swing-y: 0;
-              }
-              100% {
-                --swing-y: -100;
-                --swing-x: 100;
-              }
-            }
-            @keyframes swing {
-              0% {
-                --swing-x: -100;
-                --swing-y: -100;
-              }
-              50% {
-                --swing-y: 0;
-              }
-              100% {
-                --swing-y: -100;
-                --swing-x: 100;
-              }
-            }
-            
-        </style>
-    </head>
-    <body>
-        
-<h1>404</h1>
-    <div class="cloak__wrapper">
-        <div class="cloak__container">
-            <div class="cloak"></div>
-        </div>
-    </div>
-    {% if user.is_authenticated %}
-    <div class="info">
-        <h2>We can't find that page</h2>
-        <p>We're fairly sure that page used to be here, but seems to have gone missing. We do apologise on it's behalf.</p><a href="/home/" target="_blank" rel="noreferrer noopener">Home</a>
-    </div>
-    {% endif %}
-    {% if not user.is_authenticated %}
-    <div class='info'>
-        <h2>Login First</h2>
-        <p>We're Sorry For What Happened, But You Must Login To Access The Home Page, We Hope That You're Problem Could Be Solved By Clicking The Following Button</p><a href='/login/' target='_blank' rel='noreferrer noopener'> Home Sweet Home </a>
-    </div>
-    {% endif %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}404 Not Found{% endblock %}
+{% block head %}
+<script src="https://cdn.tailwindcss.com">
+</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<style>
+@keyframes float {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    .animate-float {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .neon-text {
+        color: #fff;
+        text-shadow: 0 0 5px #00e6e6, 0 0 10px #00e6e6, 0 0 20px #00e6e6, 0 0 40px #00e6e6, 0 0 80px #00e6e6;
+    }
+
+    .neon-button {
+        background: linear-gradient(45deg, #00e6e6, #007a7a);
+        box-shadow: 0 0 10px #00e6e6, 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #00e6e6;
+    }
+
+    .neon-button:hover {
+        box-shadow: 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #00e6e6, 0 0 50px #00e6e6;
+    }
+</style>
+{% endblock %}
+{% block container %}
+<div class="text-center p-6 bg-gray-800 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+<div class="relative">
+<img alt="Illustration of a broken or lost page with a 404 error message" class="mx-auto mb-4 animate-float" height="300" src="https://storage.googleapis.com/a1aa/image/C2PW1c_8e4ywdYXLTrPodVOUGuseSWxb68ACSIsLofM.jpg" width="400"/>
+</div>
+<h1 class="text-6xl font-bold neon-text mb-2">
+404
+</h1>
+<p class="text-xl text-gray-300 mb-4">
+Oops! The page you're looking for doesn't exist.
+</p>
+<a class="inline-block px-6 py-2 text-white rounded neon-button transition duration-300 transform hover:scale-110" href="/">
+Go Home
+</a>
+</div>
+{% endblock %}
