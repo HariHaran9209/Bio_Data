@@ -1,31 +1,18 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
-
-class UserRegistrationForm(UserCreationForm):
+# Your Forms Here
+class StudentForm(forms.ModelForm):
     class Meta:
-        model = UserData
-        fields = ['username', 'email', 'password1', 'password2', 'role']
+        model = Student
+        fields = ['name', 'age', 'admission_number', 'grade', 'phone_number', 'dob', 'emailid','stream', 'mother_name', 'father_name', 'aadhar_number', 'address', 'pincode', 'alt_phone_number', 'blood_group', 'height', 'weight', 'student_photo']
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['email'].label = "Email Address"
-        self.fields['username'].label = "Username"
-        self.fields['username'].widget.attrs.update({'placeholder': 'Enter your username'})
-        self.fields['email'].widget.attrs.update({'placeholder': 'Enter your email'})
-        self.fields['password1'].widget.attrs.update({'placeholder': 'Enter your password'})
-        self.fields['password2'].widget.attrs.update({'placeholder': 'Confirm your password'})
-        self.fields['username'].help_text = None
-        self.fields['password1'].help_text = None
-        self.fields['password2'].help_text = None
-
-class BioDataForm(forms.ModelForm):
+class UserRegistrationForm(forms.Form):
     class Meta:
-        model = BioData
-        fields = ['age', 'grade', 'address', 'contact']
+        model = CustomUserModel
+        fields = ['username', 'email', 'password', 'name']
 
-class IndexForm(forms.ModelForm):
-    class Meta:
-        model = Index
-        fields = ['studentname', 'dob', 'mothername', 'fathername', 'guardianname', 'aadharno', 'nameinaadhar', 'admissindate', 'address', 'pincode', 'phonenumber', 'alternatenumber', 'emailid', 'BPL', 'AAY', 'EWS', 'CWSN', 'impairment', 'CWSN1', 'disabilityparc', 'nationality', 'oosc', 'mainstream', 'bloodgroup', 'admissionno', 'dateInput', 'stream', 'subjects', 'status', 'grade', 'result', 'marks', 'attendence', 'SLD', 'ASD', 'ADHD', 'special', 'sports', 'scouts', 'internet', 'height', 'weight', 'distance', 'quilification']
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, required=True, label='Your Name', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=True, label='Your Email', widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}), required=True, label='Your Message')
