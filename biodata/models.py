@@ -1,6 +1,6 @@
+from django.contrib.auth.models import AbstractBaseUser , BaseUser Manager, PermissionsMixin
 from django.db import models
 from django.utils.text import slugify
-from django.contrib.auth.models import AbstractBaseUser , BaseUser Manager, PermissionsMixin
 
 # Create your models here.
 class Student(models.Model):
@@ -54,7 +54,7 @@ class CustomUser Manager(BaseUser Manager):
 
         return self.create_user(email, password, **extra_fields)
 
-class CustomUser Model(AbstractBaseUser , PermissionsMixin):
+class CustomUser (AbstractBaseUser , PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
