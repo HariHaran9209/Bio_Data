@@ -3,21 +3,16 @@ from django.conf.urls import handler404
 from .views import *
 
 urlpatterns = [
+    path('fill/', fill, name='fill'),
+    path('home/', home, name='home'),
+    path('success/', success, name='success'),
     path('register/', register, name='register'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
-    path('home/', home, name='home'),
-    path('testing/', testing, name='testing'),
-    path('submit-biodata/', submit_biodata, name='submit_biodata'),
-    path('admin-dashboard/', admin_dashboard, name='admin_dashboard'),
-    path('view-biodata/', view_biodata, name='view_biodata'),
-    path('edit-biodata/', edit_biodata, name='edit_biodata'),
-    path('index/', index, name='index'),
-    path('showindex/', showindex, name='showindex'),
-    path('editindex/', editindex, name='editindex'),
-    path('admin-data/', admin_data, name='admin_data'),
-    path('run-migrations/', run_migrations, name='run-migrations'),
-    path('show-migrations/', show_migrations, name='show-migrations'),
-    path('check-table/', check_table, name='check-table'),
+    path('contact/', contact, name='contact'),
+    path('export/', export, name='export'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('dashboard/details/<slug:slug>', details, name='details'),
 ]
-handler404 = custom_404
+
+handler404 = custom_404_view
