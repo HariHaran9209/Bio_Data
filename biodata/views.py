@@ -1,189 +1,129 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
-from django.core.management import call_command
-from django.http import HttpResponseForbidden
+from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.db import connection
+from openpyxl import Workbook
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.conf import settings
 from .models import *
-from .forms import *
-import io
+from .forms import * # type: ignore
 
-# Create your views here.    
-def custom_404(request, exception):
-    return render(request, '404.html', status=404)
+# Create your views here.
+def fill(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST, request.FILES)
+        if form.is_valid():
+            student = form.save(commit=False)
+            student.student_photo = request.FILES.get('student_photo')
+            student.save()
+            return redirect('success')
+        else:
+            print(form.errors)
+            messages.error(request, 'Invalid Form')
+            return redirect('fill')
+    else:
+        form = StudentForm()
+    return render(request, 'fill.html', {'form': form})
+
+def home(request):
+    return render(request, 'home.html')
+
+def success(request):
+    return render(request, 'success.html')
 
 def register(request):
-    if request.user.is_authenticated:
-        messages.info(request, 'You are already logged in.')
-        return redirect('home')
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         secret_code = request.POST.get('secret_code')
-        if form.is_valid():
-            user = form.save()
-
-            # Check if the user entered the secret code for admin registration
-            if 'role' in request.POST and request.POST['role'] == 'admin':
-                if secret_code == 'adminonly':  # Replace with your secret code
-                    user.is_staff = True  # Mark the user as staff
-                    user.is_superuser = True
-                    user.save()
-                    messages.success(request, 'Admin account created successfully!')
-                else:
-                    messages.error(request, 'Invalid secret code. Cannot create an admin account.')
-                    user.delete()  # Remove the user record if secret code is invalid
-                    return redirect('register')
-            else:
-                messages.success(request, 'Student account created successfully!')
-
-            login(request, user)
-            return redirect('home')
+        if secret_code == 'admin':
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            name = request.POST.get('name')
+            User.objects.create_superuser(username=username, password=password)
+            CustomUserModel.objects.create(username=username, password=password, email=email, name=name)
+            messages.success(request, 'Admin User Has Successfully Created!')
+            return redirect('login')
         else:
-            messages.error(request, 'Registration failed. Please check the form for errors.')
-    else:
-        form = UserRegistrationForm()
-    return render(request, './register.html', {'form': form})
+            messages.error(request, 'Invalid Secret Code!')
+    elif request.user.is_authenticated:
+        return redirect('dashboard')
+    return render(request, 'register.html')
 
 def login_view(request):
-    if request.user.is_authenticated:  # Redirect logged-in users
-        messages.info(request, 'You are already logged in.')
-        return redirect('home')
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    elif request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            messages.success(request, 'Login successful! Welcome back.')
-            return redirect('home')
+            return redirect('dashboard')
         else:
-            messages.error(request, 'Invalid username or password.')
+            messages.error(request, 'Invalid Username Or Password')
     return render(request, 'login.html')
+
+def dashboard(request):
+    datas = Student.objects.all()
+    return render(request, 'dashboard.html', {'datas': datas})
 
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
-def home(request):
-    if not request.user.is_authenticated:  # Redirect logged-in users
-        return redirect('login')
-    return render(request, 'home.html', {'user': request.user})
+def details(request, slug):
+    data = get_object_or_404(Student, slug=slug)
+    return render(request, 'details.html', {'data': data})
 
-@login_required
-def submit_biodata(request):
-    if hasattr(request.user, 'biodata'):
-        return redirect('view_biodata')
-
+def contact(request):
     if request.method == 'POST':
-        form = BioDataForm(request.POST)
+        form = ContactForm(request.POST)
         if form.is_valid():
-            biodata = form.save(commit=False)
-            biodata.user = request.user
-            biodata.save()
-            return redirect('view_biodata')
+            # Process the data in form.cleaned_data
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+
+            # Send an email (you can customize this part)
+            send_mail(
+                f'Contact Form Submission from {name}',
+                message,
+                email,
+                [settings.DEFAULT_FROM_EMAIL],  # Set this in your settings.py
+                fail_silently=False,
+            )
+
+            return render(request, 'success.html')  # Redirect to a success page
     else:
-        form = BioDataForm()
-    return render(request, 'submit_biodata.html', {'form': form})
+        form = ContactForm()
 
-@login_required
-def admin_dashboard(request):
-    if not request.user.is_staff:
-        return HttpResponseForbidden("You do not have permission to access this page.")
+    return render(request, 'contact.html', {'form': form})
 
-    biodata_list = BioData.objects.all()
-    return render(request, 'admin_dashboard.html', {'biodata_list': biodata_list})
+def export(request):
+    # Create a workbook and add a worksheet
+    workbook = Workbook()
+    worksheet = workbook.active
+    worksheet.title = 'Student Data'
 
-@login_required
-def view_biodata(request):
-    # Ensure the user can only view their own bio-data
-    biodata = get_object_or_404(BioData, user=request.user)
-    return render(request, 'view_biodata.html', {'biodata': biodata})
+    # Define your headers
+    headers = ['Name', 'Age', 'Admission Number', 'Grade', 'Phone Number', 'Date Of Birth', 'Email Id', 'Stream', 'Mother Name', 'Father Name', 'Aadhar Number', 'Address', 'Pincode', 'Alternate Phone Number', 'Blood Group', 'Height', 'Weight']  # Replace with your actual column names
+    worksheet.append(headers)
 
-@login_required
-def edit_biodata(request):
-    # Ensure the user has bio-data to edit
-    if not hasattr(request.user, 'biodata'):
-        return redirect('submit_biodata')
+    # Fetch data from your model
+    data = Student.objects.all().values_list('name', 'age', 'admission_number', 'grade', 'phone_number', 'dob', 'emailid', 'stream', 'mother_name', 'father_name', 'aadhar_number', 'address', 'pincode', 'alt_phone_number', 'blood_group', 'height', 'weight')  # Replace with your actual fields
 
-    biodata = request.user.biodata
-    if request.method == 'POST':
-        form = BioDataForm(request.POST, instance=biodata)
-        if form.is_valid():
-            form.save()
-            return redirect('view_biodata')
-    else:
-        form = BioDataForm(instance=biodata)
-    return render(request, 'edit_biodata.html', {'form': form})
+    # Write data to the worksheet
+    for row in data:
+        worksheet.append(row)
 
+    # Create an HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data_export.xlsx'
+    workbook.save(response)
+    return response
 
-@login_required
-def editindex(request):
-    # Ensure the user has bio-data to edit
-    if not hasattr(request.user, 'index'):
-        return redirect('index')
-
-    index = request.user.index
-    if request.method == 'POST':
-        form = IndexForm(request.POST, instance=index)
-        if form.is_valid():
-            form.save()
-            return redirect('showindex')
-    else:
-        form = IndexForm(instance=index)
-    return render(request, 'editindex.html', {'form': form})
-
-@login_required
-def showindex(request):
-    index = get_object_or_404(Index, user=request.user)
-    return render(request, 'showindex.html', {'index': index})
-
-@login_required
-def admin_data(request):
-    if not request.user.is_staff:
-        return HttpResponseForbidden("You do not have permission to access this page.")
-
-    index_list = Index.objects.all()
-    return render(request, 'admin-data.html', {'index_list': index_list})
-
-@login_required
-def index(request):
-    if hasattr(request.user, 'index'):
-        return redirect('showindex')
-
-    if request.method == 'POST':
-        form = IndexForm(request.POST)
-        if form.is_valid():
-            biodata = form.save(commit=False)  # Save form but don’t commit to database
-            biodata.user = request.user        # Associate with the logged-in user
-            biodata.save()                     # Now save to the database
-            return redirect('showindex')         # Redirect to a success page
-    else:
-        form = IndexForm()
-    return render(request, 'index.html', {'form': form})
-
-def run_migrations(request):
-    try:
-        call_command('migrate')
-        return HttpResponse("Migrations applied successfully!")
-    except Exception as e:
-        return HttpResponse(f"Error: {e}")
-
-def show_migrations(request):
-    out = io.StringIO()
-    call_command('showmigrations', stdout=out)
-    return HttpResponse(f"<pre>{out.getvalue()}</pre>")
-
-def check_table(request):
-    with connection.cursor() as cursor:
-        cursor.execute("""
-        SELECT table_name FROM information_schema.tables
-        WHERE table_name='biodata_index';
-        """)
-        exists = cursor.fetchone()
-    return HttpResponse(f"Table exists: {exists}")
-
-def testing(request):
-    return render(request, 'testing.html')
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
