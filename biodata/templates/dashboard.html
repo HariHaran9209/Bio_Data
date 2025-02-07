@@ -1,0 +1,503 @@
+{% extends 'base.html' %}
+{% block title %} Dashboard {% endblock %}
+{% block head %}
+<link rel="icon" type="image/png" href="https://colorlib.com/etc/tb/Table_Fixed_Column/images/icons/favicon.ico"/>
+<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<style>
+
+
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+@keyframes float {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    .animate-float {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .neon-text {
+        color: #fff;
+        text-shadow: 0 0 5px #00e6e6, 0 0 10px #00e6e6, 0 0 20px #00e6e6, 0 0 40px #00e6e6, 0 0 80px #00e6e6;
+    }
+
+    .neon-button {
+        background: linear-gradient(45deg, #00e6e6, #007a7a);
+        box-shadow: 0 0 10px #00e6e6, 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #00e6e6;
+    }
+
+    .neon-button:hover {
+        box-shadow: 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #00e6e6, 0 0 50px #00e6e6;
+    }
+
+@font-face {
+  font-family: Roboto-Regular;
+  src: url('../fonts/roboto/Roboto-Regular.ttf'); 
+}
+
+@font-face {
+  font-family: Roboto-Medium;
+  src: url('../fonts/roboto/Roboto-Medium.ttf'); 
+}
+
+@font-face {
+  font-family: Roboto-Bold;
+  src: url('../fonts/roboto/Roboto-Bold.ttf'); 
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ RESTYLE TAG ]*/
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
+
+body, html {
+	height: 100%;
+	font-family: sans-serif;
+}
+
+/* ------------------------------------ */
+a {
+	margin: 0px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+a:focus {
+	outline: none !important;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+/* ------------------------------------ */
+h1,h2,h3,h4,h5,h6 {margin: 0px;}
+
+p {margin: 0px;}
+
+ul, li {
+	margin: 0px;
+	list-style-type: none;
+}
+
+
+/* ------------------------------------ */
+input {
+  display: block;
+	outline: none;
+	border: none !important;
+}
+
+textarea {
+  display: block;
+  outline: none;
+}
+
+textarea:focus, input:focus {
+  border-color: transparent !important;
+}
+
+/* ------------------------------------ */
+button {
+	outline: none !important;
+	border: none;
+	background: transparent;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+iframe {
+	border: none !important;
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Scroll bar ]*/
+.js-pscroll {
+  position: relative;
+  overflow: hidden;
+}
+
+
+.table100 .ps__rail-x {
+  z-index: 1010;
+  height: 6px;
+  background-color: transparent;
+  opacity: 1 !important;
+  bottom: 10px;
+}
+
+.table100 .ps__rail-x::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: #e6e6e6;
+  height: 100%;
+  width: calc(100% - 30px);
+  left: 15px;
+  top: 0px;
+}
+
+.table100 .ps__rail-x .ps__thumb-x {
+  height: 100%;
+  bottom: 0;
+  background-color: transparent;
+  opacity: 1 !important;
+}
+
+.table100 .ps__rail-x .ps__thumb-x::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: #b3b3b3;
+  height: 100%;
+  width: calc(100% - 30px);
+  top: 0;
+  left: 15px;
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ Table ]*/
+
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+  background: #fa71cd;
+  background: -webkit-linear-gradient(bottom, #c471f5, #fa71cd);
+  background: -o-linear-gradient(bottom, #c471f5, #fa71cd);
+  background: -moz-linear-gradient(bottom, #c471f5, #fa71cd);
+  background: linear-gradient(bottom, #c471f5, #fa71cd);
+
+
+}
+
+.container-table100 {
+  max-width: 1366px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 33px 100px;
+}
+
+.wrap-table100 {
+  width: 100%;
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Table ]*/
+.table100 {
+  background-color: #fff;
+}
+
+table {
+  width: 100%;
+}
+
+th, td {
+  font-weight: unset;
+  padding-right: 10px;
+}
+
+.column1 {
+  width: 100%;
+  padding-left: 40px;
+}
+
+.column2 {
+  width: 225px;
+  padding-left: 55px;
+}
+
+.column3 {
+  width: 205px;
+}
+
+.column4 {
+  width: 195px;
+}
+
+.column5 {
+  width: 235px;
+}
+
+.column6 {
+  width: 170px;
+}
+
+.column7 {
+  width: 330px;
+}
+
+.column8 {
+  width: 305px;
+}
+
+.table100 th {
+  padding-top: 21px;
+  padding-bottom: 21px;
+}
+
+.table100 td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+
+/*==================================================================
+[ Fix col ]*/
+.table100 {
+  width: 100%;
+  position: relative;
+}
+
+.table100-firstcol {
+  background-color: #fff;
+  position: absolute;
+  z-index: 1000;
+  width: 310px;
+  top: 0;
+  left: 0;
+}
+
+.table100-firstcol table {
+  background-color: #fff;
+}
+
+.wrap-table100-nextcols {
+  width: 100%;
+  overflow: auto;
+  padding-left: 310px;
+  padding-bottom: 28px;
+}
+
+.table100-nextcols table{
+  table-layout: fixed;
+}
+
+.shadow-table100-firstcol {
+  box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+  -o-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+  -ms-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+}
+
+.table100-firstcol table {
+  background-color: transparent;
+}
+
+/*==================================================================
+[ Ver1 ]*/
+
+.table100.ver1 th {
+  font-family: Roboto-Bold;
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.table100.ver1 td {
+  font-family: Roboto-Medium;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.table100.ver1 .table100-firstcol td {
+  color: #666666;
+}
+
+.table100.ver1 .table100-nextcols td {
+  color: #999999;
+}
+
+
+.table100.ver1 tr {
+  border-bottom: 1px solid #f2f2f2;
+}
+
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+<!--===============================================================================================-->
+{% endblock %}
+{% block container %}
+  {% if user.is_authenticated %}
+	<div class="limiter" style='text-align: center;'>
+    <a href="{% url 'export' %}" style='text-decoration: none; position: relative; left: 525px; top: 20px; color: #fff; background-color: #007BFF; /* Bootstrap primary color */ padding: 10px 15px; border-radius: 5px; transition: background-color 0.3s ease;'>Export</a>
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100 ver1">
+					<div class="table100-firstcol">
+						<table>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column1">Students</th>
+								</tr>
+							</thead>
+							<tbody>
+                {% for data in datas %}
+								<tr class="row100 body">
+									<td class="cell100 column1" style='line-height: 40px;'>{{ data.name }}</td>
+								</tr>
+                {% endfor %}
+							</tbody>
+						</table>
+					</div>
+
+					<div class="wrap-table100-nextcols js-pscroll">
+						<div class="table100-nextcols">
+							<table>
+								<thead>
+									<tr class="row100 head">
+										<th class="cell100 column2">Age</th>
+										<th class="cell100 column3">Admission Number</th>
+										<th class="cell100 column4">Grade</th>
+										<th class="cell100 column5">More Details</th>
+									</tr>
+								</thead>
+								<tbody>
+                  {% for data in datas %}
+									<tr class="row100 body">
+										<td class="cell100 column2">{{ data.age }}</td>
+										<td class="cell100 column3">{{ data.admission_number }}</td>
+										<td class="cell100 column4">{{ data.grade }}</td>
+										<td class="cell100 column5">
+                      <li style="margin: 10px 0;">
+                          {% if data.slug %}
+                              <a href="{% url 'details' data.slug %}" style='text-decoration: none; color: #fff; background-color: #007BFF; /* Bootstrap primary color */ padding: 10px 15px; border-radius: 5px; transition: background-color 0.3s ease;'>Show More</a>
+                          {% else %}
+                              <span style='color: #999; /* Grey color for no slug */ font-style: italic;'>{{ data.title }} (No slug available)</span>
+                          {% endif %}
+                      </li>
+                    </td> 
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">No bio-data found</td>
+                    </tr>
+									</tr>
+                  {% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  {% elif not user.is_authenticated %}
+  <div class="text-center p-6 bg-gray-800 rounded-lg shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+    <div class="relative">
+    <img alt="Illustration of a broken or lost page with a 404 error message" class="mx-auto mb-4 animate-float" height="300" src="https://storage.googleapis.com/a1aa/image/C2PW1c_8e4ywdYXLTrPodVOUGuseSWxb68ACSIsLofM.jpg" width="400"/>
+    </div>
+    <h1 class="text-6xl font-bold neon-text mb-2">
+    404
+    </h1>
+    <p class="text-xl text-gray-300 mb-4">
+    Oops! The page you're looking for doesn't exist.
+    </p>
+    <a class="inline-block px-6 py-2 text-white rounded neon-button transition duration-300 transform hover:scale-110" href="{% url 'home' %}">
+    Go Home
+    </a>
+    </div>
+  {% endif %}
+
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+
+			$(this).on('ps-x-reach-start', function(){
+				$(this).parent().find('.table100-firstcol').removeClass('shadow-table100-firstcol');
+			});
+
+			$(this).on('ps-scroll-x', function(){
+				$(this).parent().find('.table100-firstcol').addClass('shadow-table100-firstcol');
+			});
+
+		});
+
+
+
+
+	</script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+<!--===============================================================================================-->
+	<script>        
+        (function ($) {
+            "use strict";
+            $('.column100').on('mouseover',function(){
+                var table1 = $(this).parent().parent().parent();
+                var table2 = $(this).parent().parent();
+                var verTable = $(table1).data('vertable')+"";
+                var column = $(this).data('column') + ""; 
+
+                $(table2).find("."+column).addClass('hov-column-'+ verTable);
+                $(table1).find(".row100.head ."+column).addClass('hov-column-head-'+ verTable);
+            });
+
+            $('.column100').on('mouseout',function(){
+                var table1 = $(this).parent().parent().parent();
+                var table2 = $(this).parent().parent();
+                var verTable = $(table1).data('vertable')+"";
+                var column = $(this).data('column') + ""; 
+
+                $(table2).find("."+column).removeClass('hov-column-'+ verTable);
+                $(table1).find(".row100.head ."+column).removeClass('hov-column-head-'+ verTable);
+            });
+            
+
+        })(jQuery);
+
+    </script>
+{% endblock %}
