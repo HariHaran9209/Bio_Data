@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %} Contact Us {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% endblock %}
+{% block container %}
+<div class="container mt-5">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_name">Your Name</label>
+            {{ form.name }}  <!-- Render the name field -->
+            {% if form.name.errors %}
+                <div class="text-danger">{{ form.name.errors }}</div>  <!-- Display errors for this field -->
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="id_email">Your Email</label>
+            {{ form.email }}  <!-- Render the email field -->
+            {% if form.email.errors %}
+                <div class="text-danger">{{ form.email.errors }}</div>  <!-- Display errors for this field -->
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="id_message">Your Message</label>
+            {{ form.message }}  <!-- Render the message field -->
+            {% if form.message.errors %}
+                <div class="text-danger">{{ form.message.errors }}</div>  <!-- Display errors for this field -->
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</div>
+{% endblock %}
