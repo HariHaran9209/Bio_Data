@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUser Manager, PermissionsMixin
 from django.db import models
 from django.utils.text import slugify
 
