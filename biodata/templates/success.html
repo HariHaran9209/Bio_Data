@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %} Successfully Submitted {% endblock %}
+{% block head %}
+
+{% endblock %}
+{% block container %}
+<section class="bg-white py-20">
+   <div class="container mx-auto text-center">
+    <div class="w-full md:w-1/2 mx-auto">
+     <img alt="Illustration of a checkmark indicating successful submission" class="mx-auto mb-6" height="200" src="https://storage.googleapis.com/a1aa/image/Bi_6qOqQMFK8r-exZv7jFZNlFQH6tg7c39ebGoQVI0s.jpg" width="200"/>
+     <h1 class="text-4xl font-bold text-gray-800">
+      Successfully Submitted!
+     </h1>
+     <p class="mt-4 text-gray-600">
+      Thank you for your submission. We have received your information and will get back to you shortly.
+     </p>
+     <a class="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" href="{% url 'home' %}">
+      Go to Home
+     </a>
+    </div>
+   </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-gray-800 py-6">
+   <div class="container mx-auto text-center text-gray-300">
+    <p>
+     © 2023 MyApp. All rights reserved.
+    </p>
+   </div>
+  </footer>
+{% endblock %}
