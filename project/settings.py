@@ -66,8 +66,15 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # Use os.path.join here
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydatabase',
+        'USER': 'hariharan9209',
+        'PASSWORD': 'HGOeGRFEihauFlGvpMrohWfUlymsQQRx',
+        'HOST': 'dpg-cu4gdgbtq21c73cqqllg-a',
+        'PORT': '4444',
+        'OPTIONS': {
+            'connect_timeout': 10,
+        },
     }
 }
 
