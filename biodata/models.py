@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser , BaseUser Manager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils.text import slugify
 
@@ -38,7 +38,7 @@ class CustomUserModel(models.Model):
     password = models.CharField(max_length=25)
     name = models.CharField(max_length=125)
     
-class CustomUser Manager(BaseUser Manager):
+class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
@@ -54,14 +54,14 @@ class CustomUser Manager(BaseUser Manager):
 
         return self.create_user(email, password, **extra_fields)
 
-class CustomUser (AbstractBaseUser , PermissionsMixin):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    objects = CustomUser Manager()
+    objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []  # Add any additional fields that are required for creating a user
