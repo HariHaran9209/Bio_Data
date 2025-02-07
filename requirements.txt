@@ -1,7 +1,8 @@
 asgiref==3.8.1
-Django==4.2.16
+Django==4.2.19
+et-xmlfile==2.0.0
+openpyxl==3.1.5
+pillow==11.1.0
 sqlparse==0.5.3
-gunicorn==23.0.0
-packaging==24.2
-psycopg2-binary==2.9.10
-dj_database_url==2.3.0
+typing-extensions==4.12.2
+tzdata==2025.1
