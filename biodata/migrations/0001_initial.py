@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0012_auto_20201201_1234'),
+        ('auth', '0011_update_proxy_permissions'),
     ]
 
     operations = [
