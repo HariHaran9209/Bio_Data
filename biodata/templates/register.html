@@ -1,58 +1,133 @@
 {% extends 'base.html' %}
-{% load form_filters %}
-{% block title %}Register{% endblock %}
-{% block content %}
+{% block title %} Register {% endblock %}
+{% block head %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+    body {
+        background-color: #f8f9fa;
+    }
+    .btn-custom {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-custom:hover {
+        background-color: #0056b3;
+    }
+    .step-icon {
+        font-size: 1.5rem;
+        margin-right: 8px;
+    }
+
+    .step {
+        display: none;
+    }
+
+    .step.active {
+        display: block;
+    }
+
+    .step-buttons {
+        margin-top: 20px;
+    }
+
+    .progress-bar {
+        height: 20px;
+        position: relative;
+    }
+
+    .progress-bar::after {
+        content: attr(data-step);
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: bold;
+        color: #fff;
+    }
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+    .table thead th {
+        position: sticky;
+        top: 0;
+        background-color: #343a40; /* Dark header */
+        color: #fff; /* White text */
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+    }
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+    .table {
+        font-size: 0.9rem; /* Slightly smaller font for Excel-like readability */
+    }
+    .card {
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+        font-weight: bold;
+        color: #333;
+    }
+
+    hr {
+        margin: 10px 0;
+        border: 0;
+        border-top: 1px solid #ddd;
+    }
+
+    dl.row dt {
+        font-weight: 600;
+        color: #555;
+    }
+
+    dl.row dd {
+        color: #333;
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}
+{% block container %}
+<br><br><br>
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
         <h2 class="text-center mb-4">Create Your Account</h2>
         <form method="POST">
             {% csrf_token %}
-            {{ form.non_field_errors }}
             <div class="form-group mb-3">
-                {{ form.username.label_tag }}
-                {{ form.username|add_class:"form-control rounded-2" }}
+                <label for="username">Username: </label>
+                <input type="text" placeholder="Username " name='username' id='username' class='form-control rounded-2'>
             </div>
             <div class="form-group mb-3">
-                {{ form.password1.label_tag }}
-                {{ form.password1|add_class:"form-control rounded-2" }}
+                <label for="email">Email: </label>
+                <input type="email" placeholder='Email' name='email' id='email' class='form-control rounded-2'>
             </div>
             <div class="form-group mb-3">
-                {{ form.password2.label_tag }}
-                {{ form.password2|add_class:"form-control rounded-2" }}
+                <label for="password">Password: </label>
+                <input type="password" name="password" id="password" placeholder='Password ' class="form-control rounded-2">
             </div>
             <div class="form-group mb-3">
-                <label for="role">Role:</label>
-                    <select name="role" id="role" onchange="toggleSecretCodeField()">
-                        <option value="student">Student</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                <div class="mb-3" id='secret-code-field'>
-                    <label for="secret_code" class="form-label">Secret Code (optional)</label>
-                    <input type="password" name="secret_code" id="secret_code" class="form-control" placeholder="Enter secret code for staff account">
-                </div>
+                <label for="name">Name: </label>
+                <input type="text" name="name" id="name" placeholder='Name ' class="form-control rounded-2">
+            </div>
+            <div class="form-group mb-3">
+                <label for="secret_code">Secret Code: </label>
+                <input type="password" name="secret_code" id="secret_code" placeholder='Secret Code ' class="form-control rounded-2">
             </div>
             <button type="submit" class="btn btn-primary w-100 py-2 rounded-2">Register</button>
-            {% if messages %}
-                <div>
-                    {% for message in messages %}
-                        <div class="message {{ message.tags }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+            <div class="text-center">
+                <p class="text-gray-600">Already have an account? <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login</a></p>
+            </div>
         </form>
     </div>
 </div>
-<script>
-    function toggleSecretCodeField() {
-        const role = document.getElementById('role').value;
-        const secretCodeField = document.getElementById('secret-code-field');
-        if (role === 'admin') {
-            secretCodeField.style.display = 'block';
-        } else {
-            secretCodeField.style.display = 'none';
-        }
-    }
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
