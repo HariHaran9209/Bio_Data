@@ -71,7 +71,7 @@ DATABASES = {
         'USER': 'hariharan9209',
         'PASSWORD': 'HGOeGRFEihauFlGvpMrohWfUlymsQQRx',
         'HOST': 'dpg-cu4gdgbtq21c73cqqllg-a',
-        'PORT': '4444',
+        'PORT': '5432',
         'OPTIONS': {
             'connect_timeout': 10,
         },
