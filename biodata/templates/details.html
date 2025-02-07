@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% block title %} Profile Of {{ data.name }} {% endblock %}
+{% block head %}
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css'>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js'></script>
+<style>
+    body {
+        background: rgb(99, 39, 120)
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
+
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none
+    }
+
+    .profile-button:hover {
+        background: #682773
+    }
+
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .back:hover {
+        color: #682773;
+        cursor: pointer
+    }
+
+    .labels {
+        font-size: 11px
+    }
+
+    .add-experience:hover {
+        background: #BA68C8;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #BA68C8
+    }
+    .profile-pic {
+        color: transparent;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    .profile-pic input {
+    display: none;
+    }
+    .profile-pic img {
+    position: absolute;
+    object-fit: cover;
+    width: 165px;
+    height: 165px;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+    border-radius: 100px;
+    z-index: 0;
+    }
+    .profile-pic .-label {
+    cursor: pointer;
+    height: 165px;
+    width: 165px;
+    }
+    .profile-pic:hover .-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    color: #fafafa;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 100px;
+    margin-bottom: 0;
+    }
+    .profile-pic span {
+    display: inline-flex;
+    padding: 0.2em;
+    height: 2em;
+    }
+</style>
+{% endblock %}
+{% block container %}
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><br><br><br><br><br><br><br><br><br><br><br><br>
+                {% if data.student_photo %}                            
+                    <div class="profile-pic">
+                        <label class="-label" for="file">
+                        <span class="glyphicon glyphicon-camera"></span>
+                        <span>Change Image</span>
+                        </label>
+                        <input id="file" type="file" onchange="loadFile(event)"/>
+                        <img src="{{ data.student_photo.url }}" id="output" width="200" />
+                    </div>
+                {% else %}
+                    <div class="profile-pic">
+                        <label class="-label" for="file">
+                        <span class="glyphicon glyphicon-camera"></span>
+                        <span>Change Image</span>
+                        </label>
+                        <input id="file" type="file" onchange="loadFile(event)"/>
+                        <img src="/media/default.jpg" id='output' alt="No profile photo available." width="200"/>
+                    </div>
+                {% endif %}
+                    <span class="font-weight-bold">{{ data.name }}</span>
+                    <span class="text-black-50">{{ data.emailid }}</span>
+                    <span> </span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">General Informations</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12"><label class="labels">Name</label><input type="text"  class="form-control" placeholder="Name" value="{{ data.name }}" readonly></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12"><label class="labels">Phone Number</label><input type="tel" class="form-control" placeholder="Phone Number" value="{{ data.phone_number }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">Admission Number</label><input type="text" class="form-control" placeholder="Admission Number" value="{{ data.admission_number }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">Mother Name</label><input type="text" class="form-control" placeholder="Mother Name" value="{{ data.mother_name }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">Father Name</label><input type="text" class="form-control" placeholder="Father Name" value="{{ data.father_name }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">Date Of Birth</label><input type="date" class="form-control" placeholder="Date Of Birth" value="{{ data.dob }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="email" class="form-control" placeholder="Email ID" value="{{ data.emailid }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">Stream</label><input type="text" class="form-control" placeholder="Stream" value="{{ data.stream }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">Blood Group</label><input type="text" class="form-control" placeholder="Blood Group" value="{{ data.blood_group }}" readonly></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6"><label class="labels">Grade</label><input type="text" class="form-control" placeholder="Grade" value="{{ data.grade }}" readonly></div>
+                    <div class="col-md-6"><label class="labels">Age</label><input type="text" class="form-control" value="{{ data.age }}" placeholder="Age" readonly></div>
+                </div>
+                <div class="mt-5 text-center"><a href="{% url 'dashboard' %}" style="text-decoration: none; color: #fff; background-color: #007BFF; /* Bootstrap primary color */ padding: 10px 15px; border-radius: 5px; transition: background-color 0.3s ease;">Back To Dashboard</a></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center experience"><span>Student Background Informations</span></div><br>
+                <div class="col-md-12"><label class="labels">Aadhar Number</label><input type="number" class="form-control" placeholder="Aadhar Number" value="{{ data.aadhar_number }}" readonly></div> <br>
+                <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" placeholder="Address" value="{{ data.address }}" readonly></div>
+                <div class="col-md-12"><label class="labels">Pincode</label><input type="text" class="form-control" placeholder="Pincode" value="{{ data.pincode }}" readonly></div>
+                <div class="col-md-12"><label class="labels">Student Heigth</label><input type="text" class="form-control" placeholder="Student Height" value="{{ data.height }}" readonly></div>
+                <div class="col-md-12"><label class="labels">Student Weight</label><input type="text" class="form-control" placeholder="Student Weight" value="{{ data.weight }}" readonly></div>
+                <div class="col-md-12"><label class="labels">Alternate Phone Number</label><input type="tel" class="form-control" placeholder="Alternate Phone Number" value="{{ data.alt_phone_number }}" readonly></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var loadFile = function (event) {
+    var image = document.getElementById("output");
+    image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    document.getElementById('menu-btn').addEventListener('click', function() {
+    var menu = document.getElementById('mobile-menu');
+    if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+    } else {
+        menu.classList.add('hidden');
+    }
+});
+</script>
+{% endblock %}
