@@ -1,15 +1,15 @@
 from pathlib import Path
-import dj_database_url
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sv=%cma#svl-xv-j#jt=p6nfwbg5tu44hq^qp)uzap98d539hn'
+SECRET_KEY = 'django-insecure-!cy!^un7_0=+gi4859d0%bqpb-bh$2brt&4oj^@!8!*n(!sb&0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -63,13 +63,11 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-import os
-import dj_database_url
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'postgresql://hariharan9209:HGOeGRFEihauFlGvpMrohWfUlymsQQRx@dpg-cu4gdgbtq21c73cqqllg-a/mydatabase_9nwk')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # Use os.path.join here
+    }
 }
 
 
@@ -114,4 +112,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'biodata.UserData'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'hariharanmuthukumarslm@gmail.com'  # Replace with your email
+EMAIL_HOST_PASSWORD = 'uhghuvtnzsieqala'  # Replace with your email password
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
