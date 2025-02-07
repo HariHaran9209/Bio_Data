@@ -8,7 +8,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('admin', '0001_initial'),
     ]
 
     operations = [
