@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.utils.text import slugify
 
 # Create your models here.
 class UserData(AbstractUser):
@@ -81,3 +82,38 @@ class Index(models.Model):
 
     def __str__(self):
         return f"{self.studentname}'s BioData"
+
+class Student(models.Model):
+    name = models.CharField(max_length=125, null=True)
+    age = models.IntegerField(null=True)
+    admission_number = models.IntegerField(null=True)
+    grade = models.CharField(max_length=10, null=True)
+    phone_number = models.CharField(max_length=15, null=True)
+    dob = models.CharField(max_length=25, null=True)
+    emailid = models.EmailField(null=True)
+    stream = models.CharField(max_length=25, null=True)
+    mother_name = models.CharField(max_length=125, null=True)
+    father_name = models.CharField(max_length=125, null=True)
+    aadhar_number = models.IntegerField(null=True)
+    address = models.CharField(max_length=125, null=True)
+    pincode = models.IntegerField(null=True)
+    alt_phone_number = models.CharField(max_length=25, null=True)
+    blood_group = models.CharField(max_length=15, null=True)
+    height = models.CharField(max_length=15, null=True)
+    weight = models.CharField(max_length=15, null=True)
+    slug = models.SlugField(unique=True, blank=True)
+    student_photo = models.ImageField(upload_to='student_photo/', default='student_photo/default.jpg')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.admission_number)
+        super(Student, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+class CustomUserModel(models.Model):
+    username = models.CharField(max_length=125)
+    email = models.EmailField()
+    password = models.CharField(max_length=25)
+    name = models.CharField(max_length=125)
