@@ -5,7 +5,8 @@ pip install -r requirements.txt
 echo "Migrations starts"
 python manage.py makemigrations biodata
 echo "Migrations Successfully Completed"
-python manage.py migrate --fake admin zero
-python manage.py migrate --fake biodata zero
+rm -rf biodata/migrations/*.py
+python manage.py makemigrations biodata
+python manage.py migrate biodata --fake
 python manage.py migrate
 echo "migrate Successfully Completed"
