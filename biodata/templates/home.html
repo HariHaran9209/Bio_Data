@@ -1,93 +1,145 @@
-{% extends 'base.html' %}
-{% block title %} Home {% endblock %}
-{% block head %}
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-{% endblock %}
-{% block container %}
-<!-- Hero Section -->
-<section class="bg-white py-20">
-<div class="container mx-auto flex flex-col md:flex-row items-center">
-<div class="w-full md:w-1/2 text-center md:text-left">
-    <h1 class="text-4xl md:text-5xl font-bold text-gray-800">
-    Welcome to Biodata
-    </h1>
-    <p class="mt-4 text-gray-600">
-    This Is A Website Where You Can Give Your Biodata And Submit It In Minutes Instead Of Writing It Down And Wasting Your Ink And Paper
-    </p>
-    <a class="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" href="#">
-    Get Started
-    </a>
-</div>
-<div class="w-full md:w-1/2 mt-8 md:mt-0">
-    <img alt="Illustration of a modern web application dashboard with various charts, graphs, and data tables" class="mx-auto" height="400" src="https://storage.googleapis.com/a1aa/image/DLx_47pDzAtL_bAM-TncOZcikRDryEL0umGiK-e9R4A.jpg" width="600"/>
-</div>
-</div>
-</section>
-<!-- Features Section -->
-<section class="bg-gray-100 py-20">
-<div class="container mx-auto text-center">
-<h2 class="text-3xl font-bold text-gray-800">
-    Features
-</h2>
-<div class="mt-10 flex flex-wrap justify-center">
-    <div class="w-full md:w-1/3 p-4">
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-    <i class="fas fa-cogs text-4xl text-blue-500">
-    </i>
-    <h3 class="mt-4 text-xl font-bold text-gray-800">
-    User-Friendly
-    </h3>
-    <p class="mt-2 text-gray-600">
-    This Is A Very User-Friendly Website
-    </p>
-    </div>
-    </div>
-    <div class="w-full md:w-1/3 p-4">
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-    <i class="fas fa-shield-alt text-4xl text-blue-500">
-    </i>
-    <h3 class="mt-4 text-xl font-bold text-gray-800">
-    Secure
-    </h3>
-    <p class="mt-2 text-gray-600">
-    Your Informations And Privacy Is The Important Thing To Us, We'll Give Our Word
-    </p>
-    </div>
-    </div>
-    <div class="w-full md:w-1/3 p-4">
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-    <i class="fas fa-tachometer-alt text-4xl text-blue-500">
-    </i>
-    <h3 class="mt-4 text-xl font-bold text-gray-800">
-    Fast
-    </h3>
-    <p class="mt-2 text-gray-600">
-    Optimized for speed and performance.
-    </p>
-    </div>
-    </div>
-</div>
-</div>
-</section>
-<!-- Testimonials Section -->
+<!DOCTYPE html>
+<!-- Created By CodingNepal - www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+   <!--- <title>Alert Box | CodingLab </title>----->
+   <style>
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+.alert_box,
+.show_button{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% , -50%);
+}
+.show_button{
+  height: 55px;
+  padding: 0 30px;
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  color: #fff;
+  line-height: 55px;
+  background: #2980b9;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+.show_button:hover{
+  background: #2573a7;
+}
+.background{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.alert_box{
+  padding: 30px;
+  display: flex;
+  background: #fff;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 450px;
+  width: 100%;
+  border-radius: 5px;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50% , -50%) scale(0.97);
+  transition: all 0.3s ease;
+}
+#check:checked ~ .alert_box{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50% , -50%) scale(1);
+}
+#check:checked ~ .background{
+  opacity: 1;
+  pointer-events: auto;
+}
+#check{
+  display: none;
+}
+.alert_box .icon{
+  height: 100px;
+  width: 100px;
+  color: white;
+  border: 3px solid #f23b26;
+  border-radius: 50%;
+  line-height: 97px;
+  font-size: 50px;
+}
+.alert_box header{
+  font-size: 35px;
+  font-weight: 500;
+  margin: 10px 0;
+}
+.alert_box p{
+  font-size: 20px;
+}
+.alert_box .btns{
+  margin-top: 20px;
+}
+.btns label{
+  display: inline-flex;
+  height: 55px;
+  padding: 0 30px;
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer;
+  line-height: 55px;
+  outline: none;
+  margin: 0 10px;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+.btns label:first-child{
+  background: #2980b9;
+}
+.btns label:first-child:hover{
+  background: #2573a7;
+}
+.btns label:last-child{
+  background: #f23b26;
+}
+.btns label:last-child:hover{
+  background: #d9210d;
+}
 
-<!-- Footer -->
-<footer class="bg-gray-800 py-6">
-<div class="container mx-auto text-center text-gray-300">
-<p>
-    Hari Haran's Production
-</p>
-</div>
-</footer>
-<script>
-document.getElementById('menu-btn').addEventListener('click', function() {
-        var menu = document.getElementById('mobile-menu');
-        if (menu.classList.contains('hidden')) {
-            menu.classList.remove('hidden');
-        } else {
-            menu.classList.add('hidden');
-        }
-    });
-</script>
-{% endblock %}
+   </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+   </head>
+<body>
+    <div class="container">
+      <input type="checkbox" id="check">
+      <label class="show_button" for="check">Click Me</label>
+      <div class="background"></div>
+        <div class="icon">
+          <i class="fas fa-exclamation"></i>
+        </div>
+        <header>Confirm</header>
+        <p>Thank You So So Much For What You've Done To Me In All These Days And I'm So Happy Only Because Of You Alone, Thank You So So Much. By The Way, Will You Watch Interstellar Tmr...!?</p>
+        <div class="btns">
+          <label for="check">I'll Try</label>
+          <label for="check">No, I Won't</label>
+        </div>
+    </div>
+</body>
+</html>
