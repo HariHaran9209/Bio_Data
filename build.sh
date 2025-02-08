@@ -15,3 +15,4 @@ echo "Migrations Successfully Completed"
 # Apply new migrations
 python manage.py migrate biodata
 echo "Migrate Successfully Completed"
+python manage.py migrate
