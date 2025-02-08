@@ -3,7 +3,7 @@ set -o errexit
 
 pip install -r requirements.txt
 echo "Flushing The Database"
-python manage.py flush
+python manage.py flush --noinput
 echo "Migrations starts"
 python manage.py makemigrations biodata
 echo "Migrations Successfully Completed"
