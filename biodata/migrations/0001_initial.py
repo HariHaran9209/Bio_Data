@@ -1,7 +1,7 @@
+# migrations/0001_initial.py
+
 from django.db import migrations, models
-import django.utils.timezone
 from django.contrib.auth.models import User
-from django.utils.text import slugify
 
 class Migration(migrations.Migration):
 
@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('teachername', models.CharField(max_length=125, null=False)),
                 ('email', models.EmailField()),
-                ('user', models.ForeignKey(null=True, on_delete=models.CASCADE, to='auth.User' )),
+                ('user', models.ForeignKey(null=True, on_delete=models.CASCADE, to=User)),
             ],
         ),
     ]
