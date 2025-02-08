@@ -43,7 +43,7 @@ def register(request):
             password = request.POST.get('password')
             name = request.POST.get('name')
             User.objects.create_superuser(username=username, password=password)
-            CustomUserModel.objects.create(username=username, password=password, email=email, name=name)
+            customuser.objects.create(username=username, password=password, email=email, name=name)
             messages.success(request, 'Admin User Has Successfully Created!')
             return redirect('login')
         else:
