@@ -4,10 +4,6 @@ set -o errexit
 # Install dependencies
 pip install -r requirements.txt
 
-# Do Some Shit
-python manage.py makemigrations biodata
-python manage.py migrate biodata --fake
-
 # Show existing migrations
 echo "Showing Migrations"
 python manage.py showmigrations
@@ -30,5 +26,5 @@ python manage.py makemigrations biodata
 
 # Apply new migrations
 echo "Migrations Successfully Completed"
-python manage.py migrate
+python manage.py migrate biodata
 echo "Migrate Successfully Completed"
