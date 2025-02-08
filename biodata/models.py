@@ -61,7 +61,8 @@ class Student(models.Model):
     weight = models.CharField(max_length=15, null=True)
     slug = models.SlugField(unique=True, blank=True)
     student_photo = models.ImageField(upload_to='student_photo/', default='student_photo/default.jpg')
-
+    nothing = models.CharField(max_length=5, null=True, blank=True)
+    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.admission_number)
