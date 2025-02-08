@@ -4,7 +4,7 @@ from .models import *
 # Your Forms Here
 class StudentForm(forms.ModelForm):
     class Meta:
-        model = Student
+        model = studentdata
         fields = ['name', 'age', 'admission_number', 'grade', 'phone_number', 'dob', 'emailid','stream', 'mother_name', 'father_name', 'aadhar_number', 'address', 'pincode', 'alt_phone_number', 'blood_group', 'height', 'weight', 'student_photo']
 
 class TeacherForm(forms.Form):
