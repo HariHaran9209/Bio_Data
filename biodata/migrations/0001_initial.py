@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='Student',
-            name='idle',
-            field=models.CharField(max_length=25, null=True),
+            name='nothing',
+            field=models.CharField(max_length=25, null=True, blank=True),
         ),
     ]
