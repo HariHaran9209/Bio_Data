@@ -112,11 +112,15 @@
             </div>
             <div class="form-group mb-3">
                 <label for="password">Password: </label>
-                <input type="password" name="password" id="password" placeholder='Password ' class="form-control rounded-2">
+                <input type="password" name="password1" id="password1" placeholder='Password ' class="form-control rounded-2">
+            </div>
+            <div class="form-group mb-3">
+                <label for="password">Confirm Password: </label>
+                <input type="password" name="password2" id="password2" placeholder='Confirm Password ' class="form-control rounded-2">
             </div>
             <div class="form-group mb-3">
                 <label for="name">Name: </label>
-                <input type="text" name="name" id="name" placeholder='Name ' class="form-control rounded-2">
+                <input type="text" name="teachername" id="teachername" placeholder='Name ' class="form-control rounded-2">
             </div>
             <div class="form-group mb-3">
                 <label for="secret_code">Secret Code: </label>
@@ -126,6 +130,9 @@
             <div class="text-center">
                 <p class="text-gray-600">Already have an account? <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login</a></p>
             </div>
+            {% if form.errors %}
+                <p> {{ form.errors }} </p>
+            {% endif %}
         </form>
     </div>
 </div>
