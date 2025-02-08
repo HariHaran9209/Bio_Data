@@ -9,7 +9,7 @@ class StudentForm(forms.ModelForm):
 
 class UserRegistrationForm(forms.Form):
     class Meta:
-        model = CustomUser
+        model = customuser
         fields = ['username', 'email', 'password', 'name']
 
 class ContactForm(forms.Form):
