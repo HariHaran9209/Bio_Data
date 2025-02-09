@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block title %}Home{% endblock %}
-{% block content %}
-<div class="card shadow">
-    <h2>Welcome, {{ user.username }}!</h2>
-    <p>Role: {{ user.role }}</p>
-    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-</div>
-{% endblock %}
