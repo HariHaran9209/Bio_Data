@@ -1,5 +1,7 @@
 from pathlib import Path
 import os
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -63,17 +65,11 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydatabase_9nwk',
-        'USER': 'hariharan9209',
-        'PASSWORD': 'HGOeGRFEihauFlGvpMrohWfUlymsQQRx',
-        'HOST': 'dpg-cu4gdgbtq21c73cqqllg-a',
-        'PORT': '5432',
-        'OPTIONS': {
-            'connect_timeout': 10,
-        },
-    }
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://hariharan:wm2ppanwZtOys6LgbbIFyMSJES9nEAwl@dpg-cukaidogph6c73bp6e80-a/mydatabase_8q2e',
+        conn_max_age=600
+    )
 }
 
 
