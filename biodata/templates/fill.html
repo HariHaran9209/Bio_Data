@@ -207,6 +207,11 @@
 </style>
 {% endblock %}
 {% block container %}
+{% for field in form %}
+    {% for error in field.errors %}
+        <div class="error">{{ error }}</div>
+    {% endfor %}
+{% endfor %}
 <div class="formbold-main-wrapper">
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
@@ -297,11 +302,6 @@
               class="formbold-form-input"
               />
           </div>
-          {% for field in form %}
-            {% for error in field.errors %}
-                <div class="error">{{ error }}</div>
-            {% endfor %}
-        {% endfor %}
         </div>
 
         <div class="formbold-form-step-2">
