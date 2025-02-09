@@ -297,9 +297,11 @@
               class="formbold-form-input"
               />
           </div>
-          {% if form.errors %}
-            <p>{{ form.errors }}</p>
-          {% endif %}
+          {% for field in form %}
+            {% for error in field.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+        {% endfor %}
         </div>
 
         <div class="formbold-form-step-2">
