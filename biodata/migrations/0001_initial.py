@@ -44,3 +44,8 @@ class Migration(migrations.Migration):
             ],
         ),
     ]
+    def forwards(self, orm):
+        pass
+
+    def backwards(self, orm):
+        pass
