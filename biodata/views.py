@@ -55,7 +55,7 @@ def fill(request):
     return render(request, 'fill.html', {'form': form})
 
 def dashboard(request):
-    datas = studentdata.objects.all()
+    datas = studentdata.objects.all().values()
     return render(request, 'dashboard.html', {'datas': datas})
 
 def logout_user(request):
