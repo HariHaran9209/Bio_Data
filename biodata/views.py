@@ -48,7 +48,7 @@ def fill(request):
             student.save()
             return redirect('success')
         else:
-            print(form.errors)
+            print(form.errors)  # Add this to see form errors
             return redirect('fill')
     else:
         form = StudentForm()
