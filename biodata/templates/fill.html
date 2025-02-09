@@ -231,6 +231,9 @@
         </div>
 
         <div class="formbold-form-step-1 active">
+          {% if form.errors %}
+            <p>{{ form.errors }}</p>
+          {% endif %}
           <div class="formbold-input-flex">
             <div>
                 <label for="firstname" class="formbold-form-label"> Name: </label>
