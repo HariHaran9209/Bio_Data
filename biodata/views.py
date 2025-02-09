@@ -1,41 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import check_password, make_password
-from django.contrib.auth import login, logout, authenticate
-from django.contrib import messages
 from django.core.mail import send_mail
-from django.conf import settings
 from django.http import HttpResponse
+from django.conf import settings
 from openpyxl import Workbook
 from .models import *
 from .forms import *
 
-
 # Create your views here.
-def fill(request):
-    if request.method == 'POST':
-        form = StudentForm(request.POST, request.FILES)
-        if form.is_valid():
-            student = form.save(commit=False)
-            student.student_photo = request.FILES.get('student_photo')
-            student.save()
-            return redirect('success')
-        else:
-            print(form.errors)
-            messages.error(request, 'Invalid Form')
-            return redirect('fill')
-    else:
-        form = StudentForm()
-    return render(request, 'fill.html', {'form': form})
-
-def home(request):
-    return render(request, 'home.html')
-
-def success(request):
-    return render(request, 'success.html')
-
 def register_user(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -50,6 +25,7 @@ def register_user(request):
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
 
+
 def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -63,6 +39,21 @@ def login_user(request):
     
     return render(request, 'login.html')
 
+def fill(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST, request.FILES)
+        if form.is_valid():
+            student = form.save(commit=False)
+            student.student_photo = request.FILES.get('student_photo')
+            student.save()
+            return redirect('success')
+        else:
+            print(form.errors)
+            return redirect('fill')
+    else:
+        form = StudentForm()
+    return render(request, 'fill.html', {'form': form})
+
 def dashboard(request):
     datas = studentdata.objects.all()
     return render(request, 'dashboard.html', {'datas': datas})
@@ -74,6 +65,12 @@ def logout_user(request):
 def details(request, slug):
     data = get_object_or_404(studentdata, slug=slug)
     return render(request, 'details.html', {'data': data})
+    
+def home(request):
+    return render(request, 'home.html')
+
+def success(request):
+    return render(request, 'success.html')
 
 def contact(request):
     if request.method == 'POST':
@@ -106,11 +103,11 @@ def export(request):
     worksheet.title = 'Student Data'
 
     # Define your headers
-    headers = ['Name', 'Age', 'Admission Number', 'Grade', 'Phone Number', 'Date Of Birth', 'Email Id', 'Stream', 'Mother Name', 'Father Name', 'Aadhar Number', 'Address', 'Pincode', 'Alternate Phone Number', 'Blood Group', 'Height', 'Weight']  # Replace with your actual column names
+    headers = ['Name', 'Age', 'Admission Number', 'Grade', 'Phone Number', 'Date Of Birth']  # Replace with your actual column names
     worksheet.append(headers)
 
     # Fetch data from your model
-    data = studentdata.objects.all().values_list('name', 'age', 'admission_number', 'grade', 'phone_number', 'dob', 'emailid', 'stream', 'mother_name', 'father_name', 'aadhar_number', 'address', 'pincode', 'alt_phone_number', 'blood_group', 'height', 'weight')  # Replace with your actual fields
+    data = studentdata.objects.all().values_list('name', 'age', 'admission_number', 'grade', 'phone_number', 'dob')  # Replace with your actual fields
 
     # Write data to the worksheet
     for row in data:
@@ -121,6 +118,3 @@ def export(request):
     response['Content-Disposition'] = 'attachment; filename=data_export.xlsx'
     workbook.save(response)
     return response
-
-def custom_404_view(request, exception):
-    return render(request, '404.html', status=404)
