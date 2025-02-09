@@ -28,14 +28,8 @@ class studentdata(models.Model):
         if not self.slug:
             self.slug = slugify(self.admission_number)
         super(studentdata, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
     
 class teacherdata(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     teachername = models.CharField(max_length=125, null=False)
     email = models.EmailField()
-
-    def __str__(self):
-        return self.user.username
