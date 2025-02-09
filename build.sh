@@ -4,12 +4,14 @@ set -o errexit
 # Install dependencies
 pip install -r requirements.txt
 
+# Show Migration
+python manage.py showmigrations
+
 # Generate migrations if any new model changes exist
 echo "Migrations starts"
-python manage.py makemigrations biodata
+python manage.py makemigrations
 echo "Migrations Successfully Completed"
 
 # Apply new migrations
-python manage.py migrate biodata
 echo "Migrate Successfully Completed"
 python manage.py migrate
