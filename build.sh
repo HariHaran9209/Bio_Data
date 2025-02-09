@@ -16,4 +16,4 @@ python manage.py migrate
 # Show Migration
 python manage.py showmigrations
 
-python manage.py migrate biodata --fake
+#python manage.py migrate biodata --fake
