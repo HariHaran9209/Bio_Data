@@ -7,10 +7,10 @@ class StudentForm(forms.ModelForm):
         model = studentdata
         fields = ['name', 'age', 'admission_number', 'grade', 'phone_number', 'dob', 'emailid','stream', 'mother_name', 'father_name', 'aadhar_number', 'address', 'pincode', 'alt_phone_number', 'blood_group', 'height', 'weight', 'student_photo']
 
-class TeacherForm(forms.Form):
+class TeacherForm(forms.ModelForm):
     class Meta:
         model = teacherdata
-        fields = ['username', 'email', 'password', 'teachername']
+        fields = ['teachername', 'email']
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, required=True, label='Your Name', widget=forms.TextInput(attrs={'class': 'form-control'}))
