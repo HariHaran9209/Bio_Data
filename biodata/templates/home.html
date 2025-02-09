@@ -75,6 +75,7 @@
             transform-style: preserve-3d;
             transform: rotateX(45deg) rotateY(45deg);
             animation: spin 5s infinite linear;
+            cursor: pointer;
         }
 
         .cube div {
@@ -116,7 +117,7 @@
         <h1>Thank You for Your Wishes!</h1>
         <p>Your warm wishes made my day even more special. I'm truly grateful to have amazing people like you in my life!</p>
         <button class="btn" onclick="showAppreciation()">See My Thanks</button>
-        <div class="cube">
+        <div class="cube" onclick="revealMessage()">
             <div class="front"></div>
             <div class="back"></div>
             <div class="left"></div>
@@ -124,6 +125,7 @@
             <div class="top"></div>
             <div class="bottom"></div>
         </div>
+        <p id="hiddenMessage" style="display: none; margin-top: 20px; font-size: 1.5rem;">🎉 You clicked the cube! Thanks again for being amazing! 🎉</p>
     </div>
 
     <footer>
@@ -133,6 +135,11 @@
     <script>
         function showAppreciation() {
             alert("You are awesome! Thanks again for your lovely wishes!");
+        }
+
+        function revealMessage() {
+            const message = document.getElementById('hiddenMessage');
+            message.style.display = 'block';
         }
     </script>
 </body>
