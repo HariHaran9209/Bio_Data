@@ -4,7 +4,7 @@ set -o errexit
 # Install dependencies
 pip install -r requirements.txt
 
-python manage.py makemigrations biodata
+python manage.py makemigrations 
 echo "Migrations Successfully Completed For b"
 
 # Apply new migrations
