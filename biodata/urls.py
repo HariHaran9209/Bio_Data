@@ -1,5 +1,4 @@
 from django.urls import path
-from django.conf.urls import handler404
 from .views import *
 
 urlpatterns = [
@@ -14,5 +13,3 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
     path('dashboard/details/<slug:slug>', details, name='details'),
 ]
-
-handler404 = custom_404_view
