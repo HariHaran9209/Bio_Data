@@ -3,7 +3,7 @@ from .models import *
 
 # Register your models here.
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'grade', 'dob', 'stream', 'admission_number')
+    list_display = ('name', 'grade', 'admission_number')
     prepopulated_fields = {"slug": ("name", "admission_number")}
 
 admin.site.register(studentdata, StudentAdmin)
