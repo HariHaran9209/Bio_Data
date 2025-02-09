@@ -107,17 +107,10 @@
                         <span>Change Image</span>
                         </label>
                         <input id="file" type="file" onchange="loadFile(event)"/>
-                        <img src="{{ data.student_photo.url }}" id="output" width="200" />
+                        <img src="{{ data.student_photo.url }}" id="output" width="200" alt='Profile Photo' />
                     </div>
                 {% else %}
-                    <div class="profile-pic">
-                        <label class="-label" for="file">
-                        <span class="glyphicon glyphicon-camera"></span>
-                        <span>Change Image</span>
-                        </label>
-                        <input id="file" type="file" onchange="loadFile(event)"/>
-                        <img src="/media/default.jpg" id='output' alt="No profile photo available." width="200"/>
-                    </div>
+                    <h1>No Profile Photo</h1>
                 {% endif %}
                     <span class="font-weight-bold">{{ data.name }}</span>
                     <span class="text-black-50">{{ data.emailid }}</span>
@@ -137,7 +130,7 @@
                     <div class="col-md-12"><label class="labels">Admission Number</label><input type="text" class="form-control" placeholder="Admission Number" value="{{ data.admission_number }}" readonly></div>
                     <div class="col-md-12"><label class="labels">Mother Name</label><input type="text" class="form-control" placeholder="Mother Name" value="{{ data.mother_name }}" readonly></div>
                     <div class="col-md-12"><label class="labels">Father Name</label><input type="text" class="form-control" placeholder="Father Name" value="{{ data.father_name }}" readonly></div>
-                    <div class="col-md-12"><label class="labels">Date Of Birth</label><input type="date" class="form-control" placeholder="Date Of Birth" value="{{ data.dob }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">Date Of Birth</label><input type="text" class="form-control" placeholder="Date Of Birth" value="{{ data.dob }}" readonly></div>
                     <div class="col-md-12"><label class="labels">Email ID</label><input type="email" class="form-control" placeholder="Email ID" value="{{ data.emailid }}" readonly></div>
                     <div class="col-md-12"><label class="labels">Stream</label><input type="text" class="form-control" placeholder="Stream" value="{{ data.stream }}" readonly></div>
                     <div class="col-md-12"><label class="labels">Blood Group</label><input type="text" class="form-control" placeholder="Blood Group" value="{{ data.blood_group }}" readonly></div>
