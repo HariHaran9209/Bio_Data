@@ -12,7 +12,7 @@ echo "Migrate Successfully Completed"
 #python manage.py migrate biodata
 
 python manage.py migrate
-
+python manage.py createsuperuser --noinput
 # Show Migration
 #python manage.py showmigrations
 
