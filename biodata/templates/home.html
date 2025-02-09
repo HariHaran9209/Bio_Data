@@ -1,148 +1,139 @@
-
 <!DOCTYPE html>
-<!-- Created By CodingNepal - www.codingnepalweb.com -->
-<html lang="en" dir="ltr">
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-   <title>Thank Youuuu</title>
-   <style>
-	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins',sans-serif;
-}
-.alert_box,
-.show_button{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50% , -50%);
-}
-.show_button{
-  height: 55px;
-  padding: 0 30px;
-  font-size: 20px;
-  font-weight: 400;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  color: #fff;
-  line-height: 55px;
-  background: #2980b9;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-.show_button:hover{
-  background: #2573a7;
-}
-.background{
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease;
-}
-.alert_box{
-  padding: 30px;
-  display: flex;
-  background: #fff;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: 450px;
-  width: 100%;
-  border-radius: 5px;
-  z-index: 5;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50% , -50%) scale(0.97);
-  transition: all 0.3s ease;
-}
-#check:checked ~ .alert_box{
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50% , -50%) scale(1);
-}
-#check:checked ~ .background{
-  opacity: 1;
-  pointer-events: auto;
-}
-#check{
-  display: none;
-}
-.alert_box .icon{
-  height: 100px;
-  width: 100px;
-  color: #f23b26;
-  border: 3px solid #f23b26;
-  border-radius: 50%;
-  line-height: 97px;
-  font-size: 50px;
-}
-.alert_box header{
-  font-size: 35px;
-  font-weight: 500;
-  margin: 10px 0;
-}
-.alert_box p{
-  font-size: 20px;
-}
-.alert_box .btns{
-  margin-top: 20px;
-}
-.btns label{
-  display: inline-flex;
-  height: 55px;
-  padding: 0 30px;
-  font-size: 20px;
-  font-weight: 400;
-  cursor: pointer;
-  line-height: 55px;
-  outline: none;
-  margin: 0 10px;
-  border: none;
-  color: #fff;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-.btns label:first-child{
-  background: #2980b9;
-}
-.btns label:first-child:hover{
-  background: #2573a7;
-}
-.btns label:last-child{
-  background: #f23b26;
-}
-.btns label:last-child:hover{
-  background: #d9210d;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-   </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-   </head>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+
+        .btn {
+            background: #fff;
+            color: #2575fc;
+            padding: 15px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #2575fc;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .cube {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: 50%;
+            left: 50%;
+            transform-style: preserve-3d;
+            transform: rotateX(45deg) rotateY(45deg);
+            animation: spin 5s infinite linear;
+        }
+
+        .cube div {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+        }
+
+        .cube .front  { transform: rotateY(0deg) translateZ(25px); }
+        .cube .back   { transform: rotateY(180deg) translateZ(25px); }
+        .cube .left   { transform: rotateY(-90deg) translateZ(25px); }
+        .cube .right  { transform: rotateY(90deg) translateZ(25px); }
+        .cube .top    { transform: rotateX(90deg) translateZ(25px); }
+        .cube .bottom { transform: rotateX(-90deg) translateZ(25px); }
+
+        @keyframes spin {
+            0% { transform: rotateX(45deg) rotateY(45deg); }
+            100% { transform: rotateX(405deg) rotateY(405deg); }
+        }
+
+        footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
 <body>
     <div class="container">
-      <input type="checkbox" id="check">
-      <label class="show_button" for="check">Click Me</label>
-      <div class="background"></div>
-      <div class="alert_box">
-        <div class="icon">
-          <i class="fas fa-exclamation"></i>
+        <h1>Thank You for Your Wishes!</h1>
+        <p>Your warm wishes made my day even more special. I'm truly grateful to have amazing people like you in my life!</p>
+        <button class="btn" onclick="showAppreciation()">See My Thanks</button>
+        <div class="cube">
+            <div class="front"></div>
+            <div class="back"></div>
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="top"></div>
+            <div class="bottom"></div>
         </div>
-        <header>Thank Youuuu</header>
-        <p>Thank You So So Much For What You've Done To Me In All These Days And I'm So Happy Only Because Of You Alone, Thank You So So Much. By The Way, Will You Watch Interstellar Tmr...!?</p>
-        <div class="btns">
-          <label for="check">Maybe I'll Try</label>
-          <label for="check">No, I Won't</label>
-        </div>
-      </div>
     </div>
+
+    <footer>
+        Made with ❤️ | <a href="#">Back to Top</a>
+    </footer>
+
+    <script>
+        function showAppreciation() {
+            alert("You are awesome! Thanks again for your lovely wishes!");
+        }
+    </script>
 </body>
 </html>
