@@ -231,9 +231,6 @@
         </div>
 
         <div class="formbold-form-step-1 active">
-          {% if form.errors %}
-            <p>{{ form.errors }}</p>
-          {% endif %}
           <div class="formbold-input-flex">
             <div>
                 <label for="firstname" class="formbold-form-label"> Name: </label>
@@ -261,7 +258,7 @@
               <div>
                   <label for="dob" class="formbold-form-label"> Date of Birth </label>
                   <input 
-                  type="date" 
+                  type="text" 
                   name="dob" 
                   id="dob" 
                   class="formbold-form-input"
@@ -300,13 +297,16 @@
               class="formbold-form-input"
               />
           </div>
+          {% if form.errors %}
+            <p>{{ form.errors }}</p>
+          {% endif %}
         </div>
 
         <div class="formbold-form-step-2">
           <div>
             <label for="message" class="formbold-form-label"> Phone Number </label>
             <input
-              type='number'
+              type='text'
               name="phone_number"
               id="phone_number"
               placeholder="1234567890"
@@ -376,7 +376,7 @@
             <div>
               <label for="message" class="formbold-form-label"> Alternate Phone Number </label>
               <input
-                type='number'
+                type='text'
                 name="alt_phone_number"
                 id="alt_phone_number"
                 placeholder="0987654321"
