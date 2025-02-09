@@ -14,7 +14,7 @@ class studentdata(models.Model):
     stream = models.CharField(max_length=25, null=True)
     mother_name = models.CharField(max_length=125, null=True)
     father_name = models.CharField(max_length=125, null=True)
-    aadhar_number = models.DecimalField(max_digits=12, decimal_places=0, unique=True)
+    aadhar_number = models.BigIntegerField(unique=True, null=True)
     address = models.CharField(max_length=125, null=True)
     pincode = models.IntegerField(null=True)
     alt_phone_number = models.CharField(max_length=25, null=True)
