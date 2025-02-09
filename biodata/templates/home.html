@@ -66,37 +66,6 @@
             }
         }
 
-        .cube {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            top: 50%;
-            left: 50%;
-            transform-style: preserve-3d;
-            transform: rotateX(45deg) rotateY(45deg);
-            animation: spin 5s infinite linear;
-            cursor: pointer;
-        }
-
-        .cube div {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid white;
-        }
-
-        .cube .front  { transform: rotateY(0deg) translateZ(25px); }
-        .cube .back   { transform: rotateY(180deg) translateZ(25px); }
-        .cube .left   { transform: rotateY(-90deg) translateZ(25px); }
-        .cube .right  { transform: rotateY(90deg) translateZ(25px); }
-        .cube .top    { transform: rotateX(90deg) translateZ(25px); }
-        .cube .bottom { transform: rotateX(-90deg) translateZ(25px); }
-
-        @keyframes spin {
-            0% { transform: rotateX(45deg) rotateY(45deg); }
-            100% { transform: rotateX(405deg) rotateY(405deg); }
-        }
 
         footer {
             position: absolute;
@@ -117,15 +86,6 @@
         <h1>Thank You for Your Wishes!</h1>
         <p>Your warm wishes made my day even more special. I'm truly grateful to have amazing people like you in my life!</p>
         <button class="btn" onclick="showAppreciation()">See My Thanks</button>
-        <div class="cube" onclick="revealMessage()">
-            <div class="front"></div>
-            <div class="back"></div>
-            <div class="left"></div>
-            <div class="right"></div>
-            <div class="top"></div>
-            <div class="bottom"></div>
-        </div>
-        <p id="hiddenMessage" style="display: none; margin-top: 20px; font-size: 1.5rem;">🎉 You clicked the cube! Thanks again for being amazing! 🎉</p>
     </div>
 
     <footer>
