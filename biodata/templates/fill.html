@@ -206,6 +206,7 @@
   .error_msg {text-align: center; color: #f00}
 </style>
 {% endblock %}
+{% block container %}
 <div class="formbold-main-wrapper">
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
@@ -297,12 +298,7 @@
                />
           </div>
         </div>
-        {% block container %}
-          {% for field in form %}
-              {% for error in field.errors %}
-                  <div class="error">{{ error }}</div>
-              {% endfor %}
-          {% endfor %}
+        
         <div class="formbold-form-step-2">
           <div>
             <label for="message" class="formbold-form-label"> Phone Number </label>
@@ -466,7 +462,11 @@
     </form>
   </div>
 </div>
-
+{% for field in form %}
+    {% for error in field.errors %}
+        <div class="error">{{ error }}</div>
+    {% endfor %}
+{% endfor %}
 <script>
   const stepMenuOne = document.querySelector('.formbold-step-menu1')
   const stepMenuTwo = document.querySelector('.formbold-step-menu2')
