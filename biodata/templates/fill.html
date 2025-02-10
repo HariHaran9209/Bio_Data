@@ -245,7 +245,7 @@
                 placeholder="Naveen Kumar"
                 id="name"
                 class="formbold-form-input"
-                />
+                required />
             </div>
             <div>
                 <label for="lastname" class="formbold-form-label"> Age: </label>
@@ -255,7 +255,7 @@
                 placeholder="17"
                 id="age"
                 class="formbold-form-input"
-                />
+                required />
             </div>
           </div>
   
@@ -267,7 +267,7 @@
                   name="dob" 
                   id="dob" 
                   class="formbold-form-input"
-                  />
+                 required />
               </div>
               <div>
                   <label for="email" class="formbold-form-label"> Admission Number </label>
@@ -277,7 +277,7 @@
                   placeholder="16169"
                   id="admission_number"
                   class="formbold-form-input"
-                  />
+                  required />
               </div>
           </div>
   
@@ -289,7 +289,7 @@
               id="grade"
               placeholder="11"
               class="formbold-form-input"
-              />
+             required />
           </div>
 
           <div>
@@ -300,7 +300,7 @@
               id="stream"
               placeholder="MPCCS"
               class="formbold-form-input"
-              />
+              required />
           </div>
         </div>
 
@@ -323,7 +323,7 @@
                 id="emailid"
                 placeholder="naveenkumar@gmail.com"
                 class="formbold-form-input"
-              ></textarea>
+             required ></textarea>
             </div><br>
             <div>
               <label for="message" class="formbold-form-label"> Mother Name </label>
@@ -333,7 +333,7 @@
                 id="mother_name"
                 placeholder="Keran Wheeler"
                 class="formbold-form-input"
-              ></textarea>
+              required></textarea>
             </div><br>
             <div>
               <label for="message" class="formbold-form-label"> Father Name </label>
@@ -343,7 +343,7 @@
                 id="father_name"
                 placeholder="Ted Wheeler"
                 class="formbold-form-input"
-              ></textarea>
+             required ></textarea>
             </div>
             <div>
               <label for="message" class="formbold-form-label"> Aadhar Number </label>
@@ -353,7 +353,7 @@
                 id="aadhar_number"
                 placeholder="123456789012"
                 class="formbold-form-input"
-              ></textarea>
+             required ></textarea>
             </div>
             <div>
               <label for="message" class="formbold-form-label"> Address </label>
@@ -363,7 +363,7 @@
                 id="address"
                 placeholder="Silverstone Circuit, United Kingdom"
                 class="formbold-form-input"
-              ></textarea>
+            required  ></textarea>
             </div>
             <div>
               <label for="message" class="formbold-form-label"> Pincode </label>
@@ -373,7 +373,7 @@
                 id="pincode"
                 placeholder="636009"
                 class="formbold-form-input"
-              ></textarea>
+              required></textarea>
             </div>
             <div>
               <label for="message" class="formbold-form-label"> Alternate Phone Number </label>
@@ -383,7 +383,7 @@
                 id="alt_phone_number"
                 placeholder="0987654321"
                 class="formbold-form-input"
-              ></textarea>
+              required></textarea>
             </div>
         </div>
 
@@ -396,7 +396,7 @@
                   id="blood_group"
                   placeholder="B+"
                   class="formbold-form-input"
-                >
+               required >
               </div><br><br>
             <div>
               <label for="message" class="formbold-form-label"> Weight </label>
@@ -406,7 +406,7 @@
                 id="weight"
                 placeholder="64KG"
                 class="formbold-form-input"
-              >
+              required>
             </div><br><br>
             <div>
               <label for="message" class="formbold-form-label"> Height </label>
@@ -416,7 +416,7 @@
                 id="height"
                 placeholder="145CM"
                 class="formbold-form-input"
-              >
+             required >
             </div>
             <div class="formbold-form-confirm">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -544,5 +544,60 @@ $(".file_remove").on("click", function(e){
   btnOuter.removeClass("file_uploading");
   btnOuter.removeClass("file_uploaded");
 });
+  function validateForm() {
+    let isValid = true;
+    const requiredFields = document.querySelectorAll('[required]');
+    
+    requiredFields.forEach(field => {
+      if (!field.value.trim()) {
+        isValid = false;
+        field.style.borderColor = "red"; // Add red border to empty fields
+        const errorMessage = document.createElement("span");
+        errorMessage.classList.add("error-message");
+        errorMessage.style.color = "red";
+        errorMessage.textContent = "This field is required.";
+        
+        if (!field.nextElementSibling || !field.nextElementSibling.classList.contains("error-message")) {
+          field.parentNode.appendChild(errorMessage); // Show error message next to field
+        }
+      } else {
+        field.style.borderColor = ""; // Reset the border color if field is valid
+        if (field.nextElementSibling && field.nextElementSibling.classList.contains("error-message")) {
+          field.nextElementSibling.remove(); // Remove the error message if field is valid
+        }
+      }
+    });
+    
+    return isValid; // Return true if all fields are valid
+  }
+
+  // Submit event listener
+  formSubmitBtn.addEventListener("click", function(event){
+    event.preventDefault(); // Prevent form submission
+
+    if (validateForm()) {
+      // Proceed with form submission
+      if(stepMenuOne.className == 'formbold-step-menu1 active') {
+        stepMenuOne.classList.remove('active')
+        stepMenuTwo.classList.add('active')
+
+        stepOne.classList.remove('active')
+        stepTwo.classList.add('active')
+
+        formBackBtn.classList.add('active')
+      } else if(stepMenuTwo.className == 'formbold-step-menu2 active') {
+        stepMenuTwo.classList.remove('active')
+        stepMenuThree.classList.add('active')
+
+        stepTwo.classList.remove('active')
+        stepThree.classList.add('active')
+
+        formBackBtn.classList.remove('active')
+        formSubmitBtn.textContent = 'Submit'
+      } else if(stepMenuThree.className == 'formbold-step-menu3 active') {
+        document.querySelector('form').submit()
+      }
+    }
+  })
 </script>
 {% endblock %}
