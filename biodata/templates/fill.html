@@ -206,12 +206,6 @@
   .error_msg {text-align: center; color: #f00}
 </style>
 {% endblock %}
-{% block container %}
-{% for field in form %}
-    {% for error in field.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-{% endfor %}
 <div class="formbold-main-wrapper">
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
@@ -245,7 +239,7 @@
                 placeholder="Naveen Kumar"
                 id="name"
                 class="formbold-form-input"
-                required />
+                />
             </div>
             <div>
                 <label for="lastname" class="formbold-form-label"> Age: </label>
@@ -255,7 +249,7 @@
                 placeholder="17"
                 id="age"
                 class="formbold-form-input"
-                required />
+                 />
             </div>
           </div>
   
@@ -267,7 +261,7 @@
                   name="dob" 
                   id="dob" 
                   class="formbold-form-input"
-                 required />
+                  />
               </div>
               <div>
                   <label for="email" class="formbold-form-label"> Admission Number </label>
@@ -277,7 +271,7 @@
                   placeholder="16169"
                   id="admission_number"
                   class="formbold-form-input"
-                  required />
+                   />
               </div>
           </div>
   
@@ -289,7 +283,7 @@
               id="grade"
               placeholder="11"
               class="formbold-form-input"
-             required />
+              />
           </div>
 
           <div>
@@ -300,10 +294,15 @@
               id="stream"
               placeholder="MPCCS"
               class="formbold-form-input"
-              required />
+               />
           </div>
         </div>
-
+        {% block container %}
+          {% for field in form %}
+              {% for error in field.errors %}
+                  <div class="error">{{ error }}</div>
+              {% endfor %}
+          {% endfor %}
         <div class="formbold-form-step-2">
           <div>
             <label for="message" class="formbold-form-label"> Phone Number </label>
@@ -323,7 +322,7 @@
                 id="emailid"
                 placeholder="naveenkumar@gmail.com"
                 class="formbold-form-input"
-             required ></textarea>
+              ></textarea>
             </div><br>
             <div>
               <label for="message" class="formbold-form-label"> Mother Name </label>
@@ -333,7 +332,7 @@
                 id="mother_name"
                 placeholder="Keran Wheeler"
                 class="formbold-form-input"
-              required></textarea>
+              ></textarea>
             </div><br>
             <div>
               <label for="message" class="formbold-form-label"> Father Name </label>
@@ -343,7 +342,7 @@
                 id="father_name"
                 placeholder="Ted Wheeler"
                 class="formbold-form-input"
-             required ></textarea>
+              ></textarea>
             </div>
             <div>
               <label for="message" class="formbold-form-label"> Aadhar Number </label>
@@ -353,7 +352,7 @@
                 id="aadhar_number"
                 placeholder="123456789012"
                 class="formbold-form-input"
-             required ></textarea>
+              ></textarea>
             </div>
             <div>
               <label for="message" class="formbold-form-label"> Address </label>
@@ -363,7 +362,7 @@
                 id="address"
                 placeholder="Silverstone Circuit, United Kingdom"
                 class="formbold-form-input"
-            required  ></textarea>
+              ></textarea>
             </div>
             <div>
               <label for="message" class="formbold-form-label"> Pincode </label>
@@ -373,7 +372,7 @@
                 id="pincode"
                 placeholder="636009"
                 class="formbold-form-input"
-              required></textarea>
+              ></textarea>
             </div>
             <div>
               <label for="message" class="formbold-form-label"> Alternate Phone Number </label>
@@ -383,7 +382,7 @@
                 id="alt_phone_number"
                 placeholder="0987654321"
                 class="formbold-form-input"
-              required></textarea>
+              ></textarea>
             </div>
         </div>
 
@@ -396,7 +395,7 @@
                   id="blood_group"
                   placeholder="B+"
                   class="formbold-form-input"
-               required >
+                >
               </div><br><br>
             <div>
               <label for="message" class="formbold-form-label"> Weight </label>
@@ -406,7 +405,7 @@
                 id="weight"
                 placeholder="64KG"
                 class="formbold-form-input"
-              required>
+              >
             </div><br><br>
             <div>
               <label for="message" class="formbold-form-label"> Height </label>
@@ -416,7 +415,7 @@
                 id="height"
                 placeholder="145CM"
                 class="formbold-form-input"
-             required >
+              >
             </div>
             <div class="formbold-form-confirm">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
