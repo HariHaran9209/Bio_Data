@@ -49,7 +49,7 @@ def fill(request):
             return redirect('success')
         else:
             print(form.errors)  # Add this to see form errors
-            return redirect('fill')
+            return render(request, 'fill.html', {'form': form})
     else:
         form = StudentForm()
     return render(request, 'fill.html', {'form': form})
