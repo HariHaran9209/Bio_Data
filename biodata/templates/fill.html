@@ -214,6 +214,11 @@
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
         <div class="formbold-steps">
+          {% for field in form %}
+              {% for error in field.errors %}
+                  <div class="error">{{ error }}</div>
+              {% endfor %}
+          {% endfor %}
             <ul>
                 <li class="formbold-step-menu1 active">
                     <span>1</span>
@@ -462,11 +467,6 @@
     </form>
   </div>
 </div>
-{% for field in form %}
-    {% for error in field.errors %}
-        <div class="error">{{ error }}</div>
-    {% endfor %}
-{% endfor %}
 <script>
   const stepMenuOne = document.querySelector('.formbold-step-menu1')
   const stepMenuTwo = document.querySelector('.formbold-step-menu2')
@@ -543,60 +543,5 @@ $(".file_remove").on("click", function(e){
   btnOuter.removeClass("file_uploading");
   btnOuter.removeClass("file_uploaded");
 });
-  function validateForm() {
-    let isValid = true;
-    const requiredFields = document.querySelectorAll('[required]');
-    
-    requiredFields.forEach(field => {
-      if (!field.value.trim()) {
-        isValid = false;
-        field.style.borderColor = "red"; // Add red border to empty fields
-        const errorMessage = document.createElement("span");
-        errorMessage.classList.add("error-message");
-        errorMessage.style.color = "red";
-        errorMessage.textContent = "This field is required.";
-        
-        if (!field.nextElementSibling || !field.nextElementSibling.classList.contains("error-message")) {
-          field.parentNode.appendChild(errorMessage); // Show error message next to field
-        }
-      } else {
-        field.style.borderColor = ""; // Reset the border color if field is valid
-        if (field.nextElementSibling && field.nextElementSibling.classList.contains("error-message")) {
-          field.nextElementSibling.remove(); // Remove the error message if field is valid
-        }
-      }
-    });
-    
-    return isValid; // Return true if all fields are valid
-  }
-
-  // Submit event listener
-  formSubmitBtn.addEventListener("click", function(event){
-    event.preventDefault(); // Prevent form submission
-
-    if (validateForm()) {
-      // Proceed with form submission
-      if(stepMenuOne.className == 'formbold-step-menu1 active') {
-        stepMenuOne.classList.remove('active')
-        stepMenuTwo.classList.add('active')
-
-        stepOne.classList.remove('active')
-        stepTwo.classList.add('active')
-
-        formBackBtn.classList.add('active')
-      } else if(stepMenuTwo.className == 'formbold-step-menu2 active') {
-        stepMenuTwo.classList.remove('active')
-        stepMenuThree.classList.add('active')
-
-        stepTwo.classList.remove('active')
-        stepThree.classList.add('active')
-
-        formBackBtn.classList.remove('active')
-        formSubmitBtn.textContent = 'Submit'
-      } else if(stepMenuThree.className == 'formbold-step-menu3 active') {
-        document.querySelector('form').submit()
-      }
-    }
-  })
 </script>
 {% endblock %}
