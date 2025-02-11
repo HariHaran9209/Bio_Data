@@ -118,3 +118,6 @@ def export(request):
     response['Content-Disposition'] = 'attachment; filename=data_export.xlsx'
     workbook.save(response)
     return response
+
+def farewell(request):
+    return render(request, 'farewell.html')
