@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senior Farewell Celebration</title>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8kK1eLnVpgWOJmQeQKHGQBvKxj0nQZQE",
+            authDomain: "senior-farewell-website.firebaseapp.com",
+            databaseURL: "https://senior-farewell-website-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "senior-farewell-website",
+            storageBucket: "senior-farewell-website.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abc123def456"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Enable logging to debug issues
+        firebase.database.enableLogging(true);
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
@@ -1038,36 +1059,43 @@
     <script>
         class RSVPManager {
             constructor() {
-                // Initialize from localStorage
-                this.rsvpList = JSON.parse(localStorage.getItem('rsvpList')) || [];
-                
-                // Wait for DOM to be ready before updating display
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', () => {
-                        this.initializeDisplay();
-                    });
-                } else {
-                    this.initializeDisplay();
-                }
+                this.rsvpList = [];
+                this.db = firebase.database();
+                this.rsvpRef = this.db.ref('rsvps');
+                this.initializeRSVPs();
+                console.log('RSVPManager initialized'); // Debug log
             }
 
-            initializeDisplay() {
-                this.updateRSVPDisplay();
-                this.updateAttendanceCounter();
+            initializeRSVPs() {
+                console.log('Initializing RSVPs...'); // Debug log
+                this.rsvpRef.on('value', (snapshot) => {
+                    console.log('RSVP data received:', snapshot.val()); // Debug log
+                    const data = snapshot.val();
+                    this.rsvpList = data ? Object.values(data) : [];
+                    this.updateRSVPDisplay();
+                    this.updateAttendanceCounter();
+                }, (error) => {
+                    console.error('Firebase error:', error); // Error log
+                });
             }
 
             addRSVP(name, email, attendance) {
+                console.log('Adding RSVP:', { name, email, attendance }); // Debug log
                 const rsvp = {
+                    id: Date.now(),
                     name,
                     email,
                     attendance,
                     timestamp: new Date().toLocaleString()
                 };
                 
-                this.rsvpList.push(rsvp);
-                localStorage.setItem('rsvpList', JSON.stringify(this.rsvpList));
-                this.updateRSVPDisplay();
-                this.updateAttendanceCounter();
+                this.rsvpRef.child(rsvp.id).set(rsvp)
+                    .then(() => {
+                        console.log('RSVP added successfully'); // Debug log
+                    })
+                    .catch((error) => {
+                        console.error('Error adding RSVP:', error); // Error log
+                    });
             }
 
             updateRSVPDisplay() {
@@ -1137,43 +1165,50 @@
                     setTimeout(() => number.classList.remove('number-changed'), 500);
                 });
             }
-
-            clearAllRSVPs() {
-                this.rsvpList = [];
-                localStorage.removeItem('rsvpList');
-                this.updateRSVPDisplay();
-                this.updateAttendanceCounter();
-            }
         }
 
         // Create global instance
         window.rsvpManager = new RSVPManager();
 
+
     </script>
     <script>
         class MessageBoard {
             constructor() {
-                this.messages = JSON.parse(localStorage.getItem('farewell-messages')) || [];
+                this.messages = [];
+                this.db = firebase.database();
+                this.messagesRef = this.db.ref('messages');
                 this.initializeBoard();
+                console.log('MessageBoard initialized'); // Debug log
             }
 
             initializeBoard() {
+                console.log('Initializing message board...'); // Debug log
                 if (document.readyState === 'loading') {
                     document.addEventListener('DOMContentLoaded', () => {
                         this.setupEventListeners();
-                        this.displayMessages();
                     });
                 } else {
                     this.setupEventListeners();
-                    this.displayMessages();
                 }
+
+                this.messagesRef.on('value', (snapshot) => {
+                    console.log('Message data received:', snapshot.val()); // Debug log
+                    const data = snapshot.val();
+                    this.messages = data ? Object.values(data) : [];
+                    this.displayMessages();
+                }, (error) => {
+                    console.error('Firebase error:', error); // Error log
+                });
             }
 
             setupEventListeners() {
+                console.log('Setting up event listeners...'); // Debug log
                 const submitButton = document.getElementById('submit-message');
                 const messageInput = document.getElementById('message-input');
 
                 if (submitButton && messageInput) {
+                    console.log('Found message input elements'); // Debug log
                     submitButton.addEventListener('click', () => {
                         const message = messageInput.value.trim();
                         if (message) {
@@ -1194,10 +1229,13 @@
                             submitButton.click();
                         }
                     });
+                } else {
+                    console.error('Message input elements not found!'); // Error log
                 }
             }
 
             submitMessage(message) {
+                console.log('Submitting message:', message); // Debug log
                 const newMessage = {
                     id: Date.now(),
                     content: message,
@@ -1206,23 +1244,31 @@
                     animation: this.getRandomAnimation()
                 };
 
-                this.messages.unshift(newMessage);
-                localStorage.setItem('farewell-messages', JSON.stringify(this.messages));
-                this.displayMessages();
+                this.messagesRef.child(newMessage.id).set(newMessage)
+                    .then(() => {
+                        console.log('Message added successfully'); // Debug log
+                        // Show success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Message Sent!',
+                            text: 'Your message has been added to the board.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
 
-                // Trigger fireworks
-                if (window.fireworksInstance) {
-                    window.fireworksInstance.launch(3);
-                }
-
-                // Show success message
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Message Sent!',
-                    text: 'Your message has been added to the board.',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+                        // Trigger fireworks
+                        if (window.fireworksInstance) {
+                            window.fireworksInstance.launch(3);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error adding message:', error); // Error log
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'There was an error sending your message. Please try again.'
+                        });
+                    });
             }
 
             getRandomAnimation() {
@@ -1231,17 +1277,20 @@
             }
 
             likeMessage(id) {
-                const message = this.messages.find(m => m.id === id);
-                if (message) {
-                    message.likes++;
-                    localStorage.setItem('farewell-messages', JSON.stringify(this.messages));
-                    this.displayMessages();
-                    
-                    // Trigger a small firework for likes
-                    if (window.fireworksInstance) {
-                        window.fireworksInstance.launch(1);
+                const messageRef = this.messagesRef.child(id);
+                messageRef.once('value').then((snapshot) => {
+                    const message = snapshot.val();
+                    if (message) {
+                        messageRef.update({
+                            likes: (message.likes || 0) + 1
+                        });
+                        
+                        // Trigger a small firework for likes
+                        if (window.fireworksInstance) {
+                            window.fireworksInstance.launch(1);
+                        }
                     }
-                }
+                });
             }
 
             displayMessages() {
@@ -1259,7 +1308,12 @@
                     return;
                 }
 
-                this.messages.forEach(message => {
+                // Sort messages by timestamp, newest first
+                const sortedMessages = [...this.messages].sort((a, b) => 
+                    new Date(b.timestamp) - new Date(a.timestamp)
+                );
+
+                sortedMessages.forEach(message => {
                     const messageElement = document.createElement('div');
                     messageElement.className = `message-item glass-effect ${message.animation}`;
                     messageElement.innerHTML = `
@@ -1268,7 +1322,7 @@
                             <span class="message-timestamp">${message.timestamp}</span>
                             <button class="like-button" onclick="window.messageBoard.likeMessage(${message.id})">
                                 <i class="fas fa-heart"></i>
-                                <span class="like-count">${message.likes}</span>
+                                <span class="like-count">${message.likes || 0}</span>
                             </button>
                         </div>
                     `;
@@ -1290,16 +1344,11 @@
                 
                 return content;
             }
-
-            clearAllMessages() {
-                this.messages = [];
-                localStorage.removeItem('farewell-messages');
-                this.displayMessages();
-            }
         }
 
         // Create global instance
         window.messageBoard = new MessageBoard();
+        window.messageBoard.displayMessages();
 
     </script>
     <script>
