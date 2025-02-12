@@ -352,62 +352,15 @@
         }
 
         #countdown-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 2rem;
-            text-align: center;
-            margin: 2rem auto;
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            display: none;
         }
 
         .countdown-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 1rem;
-            min-width: 120px;
-        }
-
-        .number {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            line-height: 1;
-        }
-
-        .label {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.9);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
+            display: none;
         }
 
         .countdown-separator {
-            font-size: 3rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 1rem;
-            display: flex;
-            align-items: center;
-            font-weight: 300;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        .pulse {
-            animation: pulse 0.5s ease-in-out;
+            display: none;
         }
 
         /* Mobile Countdown Styles */
@@ -807,10 +760,6 @@
                 padding: 1rem;
             }
 
-            .countdown-item {
-                padding: 0.8rem;
-            }
-
             .number {
                 font-size: 2rem;
             }
@@ -818,7 +767,7 @@
             .label {
                 font-size: 0.9rem;
             }
-
+                
             #event-details {
                 flex-direction: column;
                 gap: 1rem;
@@ -1396,6 +1345,44 @@
                 font-size: 1.1rem;
             }
         }
+
+        /* Coming Soon Styles */
+        .coming-soon {
+            text-align: center;
+            padding: 2rem;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .announcement {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .announcement i {
+            font-size: 3rem;
+            color: var(--accent-color);
+        }
+
+        .announcement h3 {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        .announcement p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin: 0;
+            max-width: 600px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -1418,9 +1405,13 @@
         </div>
 
         <div id="countdown-section" class="glass-effect">
-            <h2>Time Until We Say Goodbye</h2>
-            <div id="countdown-timer" class="countdown-container">
-                <!-- Countdown timer will be populated by JavaScript -->
+            <h2 class="section-title">Event Date</h2>
+            <div id="coming-soon-message" class="coming-soon">
+                <div class="announcement">
+                    <i class="fas fa-clock"></i>
+                    <h3>Stay Tuned!</h3>
+                    <p>The event date will be announced soon. Get ready for an unforgettable celebration!</p>
+                </div>
             </div>
         </div>
         
@@ -1429,7 +1420,7 @@
             <div id="event-details">
                 <div class="detail-item">
                     <i class="fas fa-calendar"></i>
-                    <p>February 13, 2025</p>
+                    <p>Will Be Announced Soon</p>
                 </div>
                 <div class="detail-item">
                     <i class="fas fa-clock"></i>
@@ -1713,100 +1704,6 @@
 
     </script>
     <script>
-        class CountdownTimer {
-            constructor(targetDate) {
-                this.targetDate = new Date(targetDate);
-                this.intervalId = null;
-                this.initializeTimer();
-            }
-
-            initializeTimer() {
-                const countdownSection = document.getElementById('countdown-section');
-                if (!countdownSection) return;
-
-                countdownSection.innerHTML = `
-                    <div id="countdown-container" class="glass-effect">
-                        <div class="countdown-item">
-                            <div id="days" class="number">00</div>
-                            <div class="label">Days</div>
-                        </div>
-                        <div class="countdown-separator">:</div>
-                        <div class="countdown-item">
-                            <div id="hours" class="number">00</div>
-                            <div class="label">Hours</div>
-                        </div>
-                        <div class="countdown-separator">:</div>
-                        <div class="countdown-item">
-                            <div id="minutes" class="number">00</div>
-                            <div class="label">Minutes</div>
-                        </div>
-                        <div class="countdown-separator">:</div>
-                        <div class="countdown-item">
-                            <div id="seconds" class="number">00</div>
-                            <div class="label">Seconds</div>
-                        </div>
-                    </div>
-                `;
-
-                this.updateTimer();
-                this.intervalId = setInterval(() => this.updateTimer(), 1000);
-            }
-
-            updateTimer() {
-                const now = new Date();
-                const distance = this.targetDate - now;
-
-                if (distance < 0) {
-                    if (this.intervalId) {
-                        clearInterval(this.intervalId);
-                    }
-                    this.showExpiredMessage();
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById('days').textContent = this.formatNumber(days);
-                document.getElementById('hours').textContent = this.formatNumber(hours);
-                document.getElementById('minutes').textContent = this.formatNumber(minutes);
-                
-                const secondsElement = document.getElementById('seconds');
-                if (secondsElement) {
-                    secondsElement.textContent = this.formatNumber(seconds);
-                    secondsElement.classList.add('pulse');
-                    setTimeout(() => secondsElement.classList.remove('pulse'), 500);
-                }
-            }
-
-            formatNumber(number) {
-                return number < 10 ? `0${number}` : number;
-            }
-
-            showExpiredMessage() {
-                const countdownContainer = document.getElementById('countdown-container');
-                if (countdownContainer) {
-                    countdownContainer.innerHTML = `
-                        <div class="expired-message">
-                            <h2>The Event Has Started!</h2>
-                            <p>Join us now!</p>
-                        </div>
-                    `;
-                }
-            }
-        }
-
-        // Initialize countdown timer with event date
-        document.addEventListener('DOMContentLoaded', () => {
-            // Set your event date here (YYYY-MM-DD HH:MM:SS)
-            const eventDate = '2025-02-13 14:00:00';
-            window.countdownTimer = new CountdownTimer(eventDate);
-        });
-
-    </script>
-    <script>
         class RSVPManager {
             constructor() {
                 this.rsvpList = [];
@@ -1929,11 +1826,9 @@
                 this.db = firebase.database();
                 this.messagesRef = this.db.ref('messages');
                 this.initializeBoard();
-                console.log('MessageBoard initialized'); // Debug log
             }
 
             initializeBoard() {
-                console.log('Initializing message board...'); // Debug log
                 if (document.readyState === 'loading') {
                     document.addEventListener('DOMContentLoaded', () => {
                         this.setupEventListeners();
@@ -1942,23 +1837,19 @@
                     this.setupEventListeners();
                 }
 
+                // Listen for changes in the database
                 this.messagesRef.on('value', (snapshot) => {
-                    console.log('Message data received:', snapshot.val()); // Debug log
                     const data = snapshot.val();
                     this.messages = data ? Object.values(data) : [];
                     this.displayMessages();
-                }, (error) => {
-                    console.error('Firebase error:', error); // Error log
                 });
             }
 
             setupEventListeners() {
-                console.log('Setting up event listeners...'); // Debug log
                 const submitButton = document.getElementById('submit-message');
                 const messageInput = document.getElementById('message-input');
 
                 if (submitButton && messageInput) {
-                    console.log('Found message input elements'); // Debug log
                     submitButton.addEventListener('click', () => {
                         const message = messageInput.value.trim();
                         if (message) {
@@ -1979,51 +1870,45 @@
                             submitButton.click();
                         }
                     });
-                } else {
-                    console.error('Message input elements not found!'); // Error log
                 }
             }
 
             submitMessage(message) {
-                console.log('Submitting message:', message); // Debug log
+                // Generate a unique identifier for the sender
+                const senderId = Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+                
                 const newMessage = {
                     id: Date.now(),
                     content: message,
                     timestamp: new Date().toLocaleString(),
                     likes: 0,
-                    animation: this.getRandomAnimation()
+                    animation: this.getRandomAnimation(),
+                    senderId: senderId, // Add sender ID to the message
+                    senderInfo: {
+                        browser: navigator.userAgent,
+                        time: new Date().toISOString()
+                    }
                 };
 
-                this.messagesRef.child(newMessage.id).set(newMessage)
-                    .then(() => {
-                        console.log('Message added successfully'); // Debug log
-                        // Show success message
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Message Sent!',
-                            text: 'Your message has been added to the board.',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
+                // Add to Firebase
+                this.messagesRef.child(newMessage.id).set(newMessage);
 
-                        // Trigger fireworks
-                        if (window.fireworksInstance) {
-                            window.fireworksInstance.launch(3);
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error adding message:', error); // Error log
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'There was an error sending your message. Please try again.'
-                        });
-                    });
-            }
+                // Store the senderId in localStorage for this user
+                localStorage.setItem('lastSenderId', senderId);
 
-            getRandomAnimation() {
-                const animations = ['fadeIn', 'slideIn', 'bounceIn', 'flipIn'];
-                return animations[Math.floor(Math.random() * animations.length)];
+                // Trigger fireworks
+                if (window.fireworksInstance) {
+                    window.fireworksInstance.launch(3);
+                }
+
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Message Sent!',
+                    text: 'Your message has been added to the board.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             }
 
             likeMessage(id) {
@@ -2044,40 +1929,28 @@
             }
 
             displayMessages() {
-                const boardContainer = document.getElementById('message-board-container');
-                if (!boardContainer) return;
+                const container = document.getElementById('message-board-container');
+                if (!container) return;
 
-                boardContainer.innerHTML = '';
-
-                if (this.messages.length === 0) {
-                    boardContainer.innerHTML = `
-                        <div class="no-messages-message glass-effect">
-                            <p>No messages yet. Be the first to leave a heartfelt message!</p>
+                const currentSenderId = localStorage.getItem('lastSenderId');
+                
+                container.innerHTML = this.messages
+                    .sort((a, b) => b.id - a.id)
+                    .map(message => `
+                        <div class="message-item glass-effect ${message.animation}">
+                            <div class="message-content">${this.formatMessage(message.content)}</div>
+                            <div class="message-footer">
+                                <span class="message-timestamp">${message.timestamp}</span>
+                                <button class="like-button" onclick="window.messageBoard.likeMessage('${message.id}')">
+                                    <i class="fas fa-heart"></i>
+                                    <span>${message.likes || 0}</span>
+                                </button>
+                                ${message.senderId === currentSenderId ? 
+                                    '<span style="color: var(--accent-color); font-size: 0.8em;">(Your message)</span>' : 
+                                    ''}
+                            </div>
                         </div>
-                    `;
-                    return;
-                }
-
-                // Sort messages by timestamp, newest first
-                const sortedMessages = [...this.messages].sort((a, b) => 
-                    new Date(b.timestamp) - new Date(a.timestamp)
-                );
-
-                sortedMessages.forEach(message => {
-                    const messageElement = document.createElement('div');
-                    messageElement.className = `message-item glass-effect ${message.animation}`;
-                    messageElement.innerHTML = `
-                        <div class="message-content">${this.formatMessage(message.content)}</div>
-                        <div class="message-footer">
-                            <span class="message-timestamp">${message.timestamp}</span>
-                            <button class="like-button" onclick="window.messageBoard.likeMessage(${message.id})">
-                                <i class="fas fa-heart"></i>
-                                <span class="like-count">${message.likes || 0}</span>
-                            </button>
-                        </div>
-                    `;
-                    boardContainer.appendChild(messageElement);
-                });
+                    `).join('');
             }
 
             formatMessage(content) {
@@ -2093,6 +1966,11 @@
                                 .replace(/<3|❤️/g, '❤️');
                 
                 return content;
+            }
+
+            getRandomAnimation() {
+                const animations = ['fadeIn', 'slideIn', 'bounceIn', 'flipIn'];
+                return animations[Math.floor(Math.random() * animations.length)];
             }
         }
 
