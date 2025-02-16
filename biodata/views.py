@@ -121,3 +121,6 @@ def export(request):
 
 def farewell(request):
     return render(request, 'farewell.html')
+
+def testing(request):
+    return render(request, 'testing.html')
