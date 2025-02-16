@@ -56,6 +56,7 @@
             font-size: 1em;
             cursor: pointer;
             transition: background 0.3s;
+            margin: 10px;
         }
         
         button:hover {
@@ -66,7 +67,11 @@
             display: none;
         }
         
-        #more-info {
+        #trust-question {
+            margin-top: 20px;
+        }
+        
+        #response-message {
             margin-top: 20px;
             font-size: 1.2em;
         }
@@ -76,25 +81,33 @@
     <div class="container">
         <h1>I'm Sorry</h1>
         <div class="emoji" id="emoji">😢</div>
-        <p id="apology-message">I truly apologize for any inconvenience caused. Please forgive me!</p>
-        <button id="show-more" onclick="toggleMore()">Show More</button>
-        <div id="more-info" class="hidden">
-            <p>Thank you for your understanding. I appreciate your patience and support.</p>
+        <p id="apology-message">I Truly Sorry For What Happened Because Of Me. Please forgive me!</p>
+        <button id="click-me" onclick="showTrustQuestion()">Click Me</button>
+        
+        <div id="trust-question" class="hidden">
+            <p>Will You Trust Me Again?</p>
+            <button onclick="userResponse('yes')">Yes, I'll Always Trust You Bro</button>
+            <button onclick="userResponse('no')">No, I Won't Ever Trust You Again</button>
         </div>
+
+        <div id="response-message" class="hidden"></div>
     </div>
 
     <script>
-        function toggleMore() {
-            const moreInfo = document.getElementById('more-info');
-            const showMoreButton = document.getElementById('show-more');
+        function showTrustQuestion() {
+            document.getElementById('trust-question').classList.remove('hidden');
+            document.getElementById('click-me').classList.add('hidden');
+        }
         
-            if (moreInfo.classList.contains('hidden')) {
-                moreInfo.classList.remove('hidden');
-                showMoreButton.textContent = 'Show Less';
+        function userResponse(response) {
+            const responseMessage = document.getElementById('response-message');
+            if (response === 'yes') {
+                responseMessage.textContent = "Thank You! Your Trust Means So Much To Me!";
             } else {
-                moreInfo.classList.add('hidden');
-                showMoreButton.textContent = 'Show More';
+                responseMessage.textContent = "I Understand. I'll Work Hard To Earn Your Trust Back.";
             }
+            responseMessage.classList.remove('hidden');
+            document.getElementById('trust-question').classList.add('hidden');
         }
     </script>
 </body>
