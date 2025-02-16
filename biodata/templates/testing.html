@@ -5,105 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I'm Sorry</title>
     <style>
-      * {
-          box-sizing: border-box;
-          margin: 0;
-          padding: 0;
-      }
-      
-      body {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          background: linear-gradient(135deg, #ff7e5f, #feb47b);
-          font-family: 'Arial', sans-serif;
-          color: white;
-          text-align: center;
-      }
-      
-      .container {
-          position: relative;
-      }
-      
-      h1 {
-          font-size: 3em;
-          margin-bottom: 20px;
-      }
-      
-      .heart {
-          width: 100px;
-          height: 100px;
-          background: red;
-          position: relative;
-          transform: rotate(-45deg);
-          margin: 0 auto;
-          animation: beat 1s infinite;
-      }
-      
-      .heart::before,
-      .heart::after {
-          content: '';
-          width: 100px;
-          height: 100px;
-          background: red;
-          border-radius: 50%;
-          position: absolute;
-      }
-      
-      .heart::before {
-          top: -50px;
-          left: 0;
-      }
-      
-      .heart::after {
-          left: 50px;
-          top: 0;
-      }
-      
-      @keyframes beat {
-          0%, 100% {
-              transform: scale(1);
-          }
-          50% {
-              transform: scale(1.1);
-          }
-      }
-      
-      #apology-message {
-          margin: 20px 0;
-          font-size: 1.5em;
-      }
-      
-      button {
-          padding: 10px 20px;
-          background: #ff4757;
-          border: none;
-          border-radius: 5px;
-          color: white;
-          font-size: 1em;
-          cursor: pointer;
-          transition: background 0.3s;
-      }
-      
-      button:hover {
-          background: #ff6b81;
-      }
-      
-      .hidden {
-          display: none;
-      }
-      
-      #more-info {
-          margin-top: 20px;
-          font-size: 1.2em;
-      }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            font-family: 'Arial', sans-serif;
+            color: white;
+            text-align: center;
+        }
+        
+        .container {
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .emoji {
+            font-size: 100px; /* Size of the emoji */
+            animation: shake 0.5s infinite alternate; /* Animation for the emoji */
+            margin: 20px 0;
+        }
+        
+        @keyframes shake {
+            0% { transform: translate(0); }
+            100% { transform: translate(-10px); }
+        }
+        
+        #apology-message {
+            margin: 20px 0;
+            font-size: 1.5em;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #ff4757;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #ff6b81;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        #more-info {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>I'm Sorry</h1>
-        <div class="heart" id="heart"></div>
+        <div class="emoji" id="emoji">😢</div>
         <p id="apology-message">I truly apologize for any inconvenience caused. Please forgive me!</p>
         <button id="show-more" onclick="toggleMore()">Show More</button>
         <div id="more-info" class="hidden">
@@ -112,18 +84,18 @@
     </div>
 
     <script>
-      function toggleMore() {
-        const moreInfo = document.getElementById('more-info');
-        const showMoreButton = document.getElementById('show-more');
-    
-        if (moreInfo.classList.contains('hidden')) {
-            moreInfo.classList.remove('hidden');
-            showMoreButton.textContent = 'Show Less';
-        } else {
-            moreInfo.classList.add('hidden');
-            showMoreButton.textContent = 'Show More';
+        function toggleMore() {
+            const moreInfo = document.getElementById('more-info');
+            const showMoreButton = document.getElementById('show-more');
+        
+            if (moreInfo.classList.contains('hidden')) {
+                moreInfo.classList.remove('hidden');
+                showMoreButton.textContent = 'Show Less';
+            } else {
+                moreInfo.classList.add('hidden');
+                showMoreButton.textContent = 'Show More';
+            }
         }
-    }
     </script>
 </body>
 </html>
