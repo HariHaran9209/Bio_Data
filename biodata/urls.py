@@ -13,4 +13,5 @@ urlpatterns = [
     path('export/', export, name='export'),
     path('dashboard/', dashboard, name='dashboard'),
     path('dashboard/details/<slug:slug>', details, name='details'),
+    path('testing/', testing, name='testing'),
 ]
