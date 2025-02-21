@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Parallax Sphere</title>
+    <link rel="icon" href="https://images.unsplash.com/photo-1646736722277-8e035a16e056?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" type="image/png">
+    <title>Nothing Just An Inchident</title>
     <style>
         * {
             margin: 0;
@@ -15,8 +16,9 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(to right, #141e30, #243b55);
+            background: black;
             overflow: hidden;
+            position: relative;
         }
         .container {
             position: relative;
@@ -27,9 +29,8 @@
         .sphere {
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0) 70%);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.5), 0 10px 30px rgba(0, 0, 0, 0.3);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,31 +39,58 @@
             font-family: Arial, sans-serif;
             transform-style: preserve-3d;
             transition: transform 0.1s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        .hidden-image {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            background: url('https://images.unsplash.com/photo-1646736722277-8e035a16e056?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center;
+            background-size: cover;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            animation: moveStars 10s linear infinite;
+        }
+        @keyframes moveStars {
+            from { background-position: 0 0; }
+            to { background-position: -100px -100px; }
         }
     </style>
 </head>
 <body>
+    <div class="stars"></div>
     <div class="container">
-        <div class="sphere">3D Sphere</div>
+        <div class="sphere">
+            <div class="hidden-image"></div>
+        </div>
     </div>
 
     <script>
         const sphere = document.querySelector('.sphere');
         const container = document.querySelector('.container');
+        const hiddenImage = document.querySelector('.hidden-image');
+        let lastShakeTime = 0;
 
         function updateRotation(xAxis, yAxis) {
-            sphere.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            sphere.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) scale(1.05)`;
         }
 
-        // Mouse movement support
+        // Mouse movement support for laptops
         container.addEventListener('mousemove', (e) => {
             let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
             let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
             updateRotation(xAxis, yAxis);
-        });
-
-        container.addEventListener('mouseenter', () => {
-            sphere.style.transition = "none";
         });
 
         container.addEventListener('mouseleave', () => {
@@ -79,17 +107,42 @@
             });
         }
 
-        // Mobile touch support
-        let startX, startY;
-        container.addEventListener("touchstart", (e) => {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
+        // Shake detection for mobile
+        let lastX = null, lastY = null, lastZ = null;
+        window.addEventListener('devicemotion', (event) => {
+            let acc = event.accelerationIncludingGravity;
+            if (!acc) return;
+            let x = acc.x;
+            let y = acc.y;
+            let z = acc.z;
+            
+            if (lastX !== null && lastY !== null && lastZ !== null) {
+                let deltaX = Math.abs(x - lastX);
+                let deltaY = Math.abs(y - lastY);
+                let deltaZ = Math.abs(z - lastZ);
+                
+                let shakeThreshold = 15;
+                if ((deltaX > shakeThreshold || deltaY > shakeThreshold || deltaZ > shakeThreshold) && (Date.now() - lastShakeTime > 2000)) {
+                    lastShakeTime = Date.now();
+                    hiddenImage.style.opacity = 1;
+                    setTimeout(() => {
+                        hiddenImage.style.opacity = 0;
+                    }, 3000);
+                }
+            }
+            lastX = x;
+            lastY = y;
+            lastZ = z;
         });
-        
-        container.addEventListener("touchmove", (e) => {
-            let xAxis = (startX - e.touches[0].clientX) / 15;
-            let yAxis = (startY - e.touches[0].clientY) / 15;
-            updateRotation(xAxis, yAxis);
+
+        // Keyboard shortcut for laptop users (press "S" to show image)
+        document.addEventListener('keydown', (event) => {
+            if (event.key.toLowerCase() === 's') {
+                hiddenImage.style.opacity = 1;
+                setTimeout(() => {
+                    hiddenImage.style.opacity = 0;
+                }, 3000);
+            }
         });
     </script>
 </body>
