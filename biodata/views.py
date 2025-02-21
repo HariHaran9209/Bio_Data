@@ -124,3 +124,6 @@ def farewell(request):
 
 def testing(request):
     return render(request, 'testing.html')
+
+def portfolio(request):
+    return render(request, 'portfolio.html')
