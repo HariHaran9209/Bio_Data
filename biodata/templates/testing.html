@@ -3,112 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I'm Sorry</title>
+    <title>3D Parallax Sphere</title>
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
-            font-family: 'Arial', sans-serif;
-            color: white;
-            text-align: center;
+            background: linear-gradient(to right, #141e30, #243b55);
+            overflow: hidden;
         }
-        
         .container {
             position: relative;
+            width: 300px;
+            height: 300px;
+            perspective: 1000px;
         }
-        
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-        
-        .emoji {
-            font-size: 100px; /* Size of the emoji */
-            animation: shake 0.5s infinite alternate; /* Animation for the emoji */
-            margin: 20px 0;
-        }
-        
-        @keyframes shake {
-            0% { transform: translate(0); }
-            100% { transform: translate(-10px); }
-        }
-        
-        #apology-message {
-            margin: 20px 0;
-            font-size: 1.5em;
-        }
-        
-        button {
-            padding: 10px 20px;
-            background: #ff4757;
-            border: none;
-            border-radius: 5px;
+        .sphere {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.5), 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
             color: white;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin: 10px;
-        }
-        
-        button:hover {
-            background: #ff6b81;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        #trust-question {
-            margin-top: 20px;
-        }
-        
-        #response-message {
-            margin-top: 20px;
-            font-size: 1.2em;
+            font-family: Arial, sans-serif;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>I'm Sorry</h1>
-        <div class="emoji" id="emoji">😢</div>
-        <p id="apology-message">I Truly Sorry For What Happened Because Of Me. Please forgive me!</p>
-        <button id="click-me" onclick="showTrustQuestion()">Click Me</button>
-        
-        <div id="trust-question" class="hidden">
-            <p>Will You Trust Me Again?</p>
-            <button onclick="userResponse('yes')">Yes, I'll Always Trust You Bro</button>
-            <button onclick="userResponse('no')">No, I Won't Ever Trust You Again</button>
-        </div>
-
-        <div id="response-message" class="hidden"></div>
+        <div class="sphere">3D Sphere</div>
     </div>
 
     <script>
-        function showTrustQuestion() {
-            document.getElementById('trust-question').classList.remove('hidden');
-            document.getElementById('click-me').classList.add('hidden');
+        const sphere = document.querySelector('.sphere');
+        const container = document.querySelector('.container');
+
+        function updateRotation(xAxis, yAxis) {
+            sphere.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
         }
+
+        // Mouse movement support
+        container.addEventListener('mousemove', (e) => {
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            updateRotation(xAxis, yAxis);
+        });
+
+        container.addEventListener('mouseenter', () => {
+            sphere.style.transition = "none";
+        });
+
+        container.addEventListener('mouseleave', () => {
+            sphere.style.transition = "transform 0.5s ease";
+            updateRotation(0, 0);
+        });
+
+        // Mobile gyroscope support
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener("deviceorientation", (event) => {
+                let xAxis = event.gamma / 2; // Left-right tilt
+                let yAxis = event.beta / 2; // Front-back tilt
+                updateRotation(xAxis, yAxis);
+            });
+        }
+
+        // Mobile touch support
+        let startX, startY;
+        container.addEventListener("touchstart", (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
         
-        function userResponse(response) {
-            const responseMessage = document.getElementById('response-message');
-            if (response === 'yes') {
-                responseMessage.textContent = "Thank You! Your Trust Means So Much To Me!";
-            } else {
-                responseMessage.textContent = "I Understand. I'll Work Hard To Earn Your Trust Back.";
-            }
-            responseMessage.classList.remove('hidden');
-            document.getElementById('trust-question').classList.add('hidden');
-        }
+        container.addEventListener("touchmove", (e) => {
+            let xAxis = (startX - e.touches[0].clientX) / 15;
+            let yAxis = (startY - e.touches[0].clientY) / 15;
+            updateRotation(xAxis, yAxis);
+        });
     </script>
 </body>
 </html>
