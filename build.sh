@@ -11,7 +11,6 @@ echo "Migrations Successfully Completed For b"
 echo "Migrate Successfully Completed"
 #python manage.py migrate biodata
 
-python manage.py migrate
 python manage.py collectstatic --noinput
 #python manage.py createsuperuser --noinput
 # Show Migration
