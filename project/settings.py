@@ -67,10 +67,10 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
+        default="postgresql://hariharan9209:QqSvTk6vuqRoY7JiNy5hC2QJyEie1M93@dpg-d5mej5tactks73bqbo70-a/biodata_db",
         conn_max_age=600,
-        ssl_require=True 
-            )
+        ssl_require=True
+    )
 }
 
 
@@ -129,6 +129,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'hariharanmuthukumarslm@gmail.com'  # Replace with your email
 EMAIL_HOST_PASSWORD = 'uhghuvtnzsieqala'  # Replace with your email password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 
 
