@@ -66,10 +66,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        conn_max_age=600
-    )
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 
@@ -128,6 +125,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'hariharanmuthukumarslm@gmail.com'  # Replace with your email
 EMAIL_HOST_PASSWORD = 'uhghuvtnzsieqala'  # Replace with your email password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 
 
