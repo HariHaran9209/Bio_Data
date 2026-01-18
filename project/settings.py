@@ -69,7 +69,8 @@ DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
         default='postgresql://hariharan:wm2ppanwZtOys6LgbbIFyMSJES9nEAwl@dpg-cukaidogph6c73bp6e80-a/mydatabase_8q2e',
-        conn_max_age=600
+        conn_max_age=600,
+        ssl_require=True
     )
 }
 
@@ -129,3 +130,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'hariharanmuthukumarslm@gmail.com'  # Replace with your email
 EMAIL_HOST_PASSWORD = 'uhghuvtnzsieqala'  # Replace with your email password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
